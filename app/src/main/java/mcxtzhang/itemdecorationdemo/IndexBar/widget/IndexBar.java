@@ -123,8 +123,49 @@ public class IndexBar extends View {
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        //取出宽高的MeasureSpec  Mode 和Size
+        int wMode = MeasureSpec.getMode(widthMeasureSpec);
+        int wSize = MeasureSpec.getSize(widthMeasureSpec);
+        int hMode = MeasureSpec.getMode(heightMeasureSpec);
+        int hSize = MeasureSpec.getSize(heightMeasureSpec);
+        int measureWidth = 0, measureHeight = 0;//最终测量出来的宽高
+
+        //得到合适宽度：
+        Rect indexBounds = new Rect();//存放每个绘制的index的Rect区域
+        String index;//每个要绘制的index内容
+        for (int i = 0; i < mIndexDatas.size(); i++) {
+            index = mIndexDatas.get(i);
+            mPaint.getTextBounds(index, 0, index.length(), indexBounds);//测量计算文字所在矩形，可以得到宽高
+            measureWidth = Math.max(indexBounds.width(), measureWidth);//循环结束后，得到index的最大宽度
+            measureHeight = Math.max(indexBounds.width(), measureHeight);//循环结束后，得到index的最大高度，然后*size
+        }
+        measureHeight *= mIndexDatas.size();
+        switch (wMode) {
+            case MeasureSpec.EXACTLY:
+                measureWidth = wSize;
+                break;
+            case MeasureSpec.AT_MOST:
+                measureWidth = Math.min(measureWidth, wSize);//wSize此时是父控件能给子View分配的最大空间
+                break;
+            case MeasureSpec.UNSPECIFIED:
+                break;
+        }
+
+        //得到合适的高度：
+        switch (wMode) {
+            case MeasureSpec.EXACTLY:
+                measureHeight = hSize;
+                break;
+            case MeasureSpec.AT_MOST:
+                measureHeight = Math.min(measureHeight, hSize);//wSize此时是父控件能给子View分配的最大空间
+                break;
+            case MeasureSpec.UNSPECIFIED:
+                break;
+        }
+
+        setMeasuredDimension(measureWidth, measureHeight);
     }
+
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -227,7 +268,7 @@ public class IndexBar extends View {
      */
     public IndexBar setNeedRealIndex(boolean needRealIndex) {
         isNeedRealIndex = needRealIndex;
-        if (isNeedRealIndex){
+        if (isNeedRealIndex) {
             if (mIndexDatas != null) {
                 mIndexDatas = new ArrayList<>();
             }
