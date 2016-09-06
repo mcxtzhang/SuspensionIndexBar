@@ -152,7 +152,7 @@ public class IndexBar extends View {
         }
 
         //得到合适的高度：
-        switch (wMode) {
+        switch (hMode) {
             case MeasureSpec.EXACTLY:
                 measureHeight = hSize;
                 break;
