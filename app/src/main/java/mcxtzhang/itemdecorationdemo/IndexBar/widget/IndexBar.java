@@ -227,8 +227,10 @@ public class IndexBar extends View {
      */
     public IndexBar setNeedRealIndex(boolean needRealIndex) {
         isNeedRealIndex = needRealIndex;
-        if (mIndexDatas != null) {
-            mIndexDatas = new ArrayList<>();
+        if (isNeedRealIndex){
+            if (mIndexDatas != null) {
+                mIndexDatas = new ArrayList<>();
+            }
         }
         return this;
     }

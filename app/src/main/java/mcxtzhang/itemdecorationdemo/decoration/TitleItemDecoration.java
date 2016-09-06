@@ -36,7 +36,7 @@ public class TitleItemDecoration extends RecyclerView.ItemDecoration {
     private static int mTitleFontSize;//title字体大小
 
 
-    public TitleItemDecoration(Context context, List<CityBean> datas) {
+    public TitleItemDecoration(Context context, List<? extends CityBean> datas) {
         super();
         mDatas = datas;
         mPaint = new Paint();
