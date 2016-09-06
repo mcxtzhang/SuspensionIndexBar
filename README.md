@@ -2,6 +2,8 @@
 本项目是两篇博文的合体代码：
 
 一【Android 仿微信通讯录 导航分组列表-上】使用ItemDecoration为RecyclerView打造带悬停头部的分组列表
+链接：http://blog.csdn.net/zxt0601/article/details/52355199
+
 
 网上关于实现带悬停分组头部的列表的方法有很多，像我看过有主席的自定义ExpandListView实现的，也看过有人用一个额外的父布局里面套 RecyclerView/ListView+一个头部View（位置固定在父布局上方）实现的。
 对于以上解决方案，有以下几点个人觉得不好的地方：
@@ -23,8 +25,8 @@
 
 
 二【Android 仿微信通讯录 导航分组列表-下】自定义View为RecyclerView打造右侧索引导航栏IndexBar
-
-在上篇文章（http://blog.csdn.net/zxt0601/article/details/52355199）里
+链接： http://blog.csdn.net/zxt0601/article/details/52420706
+在上篇文章里
 ，我们用ItemDecoration为RecyclerView打造了带悬停头部的分组列表。其实Android版微信的通讯录界面，它的分组title也不是悬停的，我们已经领先了微信一小步（认真脸）~
 再看看市面上常见的分组列表（例如饿了么点餐商品列表），不仅有悬停头部，悬停头部在切换时，还会伴有**切换动画**。
 关于ItemDecoration还有一个问题，简单布局还好，我们可以draw出来，如果是复杂的头部呢？能否写个xml，inflate进来，这样使用起来才简单，即另一种**简单使用onDraw和onDrawOver**的姿势。
