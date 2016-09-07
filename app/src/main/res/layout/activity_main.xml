@@ -17,8 +17,8 @@
         android:layout_width="24dp"
         android:layout_height="match_parent"
         android:layout_gravity="right"
-        app:pressBackground="@color/partTranslucent"
-        app:textSize="16sp" />
+        app:indexBarPressBackground="@color/partTranslucent"
+        app:indexBarTextSize="16sp" />
 
     <TextView
         android:id="@+id/tvSideBarHint"

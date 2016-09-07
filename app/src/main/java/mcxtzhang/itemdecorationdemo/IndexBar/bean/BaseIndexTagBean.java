@@ -9,13 +9,13 @@ package mcxtzhang.itemdecorationdemo.IndexBar.bean;
  */
 
 public class BaseIndexTagBean {
-    private String tag;//所属的分类（城市的汉语拼音首字母）
+    private String baseIndexTag;//所属的分类（城市的汉语拼音首字母）
 
-    public String getTag() {
-        return tag;
+    public String getBaseIndexTag() {
+        return baseIndexTag;
     }
 
-    public void setTag(String tag) {
-        this.tag = tag;
+    public void setBaseIndexTag(String baseIndexTag) {
+        this.baseIndexTag = baseIndexTag;
     }
 }

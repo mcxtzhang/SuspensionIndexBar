@@ -47,7 +47,7 @@ public class TitleItemDecoration2 extends RecyclerView.ItemDecoration {
                     drawTitleArea(c, left, right, child, params, position);
 
                 } else {//其他的通过判断
-                    if (null != mDatas.get(position).getTag() && !mDatas.get(position).getTag().equals(mDatas.get(position - 1).getTag())) {
+                    if (null != mDatas.get(position).getBaseIndexTag() && !mDatas.get(position).getBaseIndexTag().equals(mDatas.get(position - 1).getBaseIndexTag())) {
                         //不为空 且跟前一个tag不一样了，说明是新的分类，也要title
                         drawTitleArea(c, left, right, child, params, position);
                     } else {
@@ -76,15 +76,15 @@ public class TitleItemDecoration2 extends RecyclerView.ItemDecoration {
         Paint.FontMetricsInt fontMetrics = mPaint.getFontMetricsInt();
         int baseline = (getMeasuredHeight() - fontMetrics.bottom + fontMetrics.top) / 2 - fontMetrics.top;*/
 
-        mPaint.getTextBounds(mDatas.get(position).getTag(), 0, mDatas.get(position).getTag().length(), mBounds);
-        c.drawText(mDatas.get(position).getTag(), child.getPaddingLeft(), child.getTop() - params.topMargin - (mTitleHeight / 2 - mBounds.height() / 2), mPaint);
+        mPaint.getTextBounds(mDatas.get(position).getBaseIndexTag(), 0, mDatas.get(position).getBaseIndexTag().length(), mBounds);
+        c.drawText(mDatas.get(position).getBaseIndexTag(), child.getPaddingLeft(), child.getTop() - params.topMargin - (mTitleHeight / 2 - mBounds.height() / 2), mPaint);
     }
 
     @Override
     public void onDrawOver(Canvas c, RecyclerView parent, RecyclerView.State state) {//最后调用 绘制在最上层
         int pos = ((LinearLayoutManager)(parent.getLayoutManager())).findFirstVisibleItemPosition();
 
-        String tag = mDatas.get(pos).getTag();
+        String tag = mDatas.get(pos).getBaseIndexTag();
         View child = parent.getChildAt(pos);
         mPaint.setColor(COLOR_TITLE_BG);
         c.drawRect(parent.getPaddingLeft(), parent.getPaddingTop(), parent.getRight() - parent.getPaddingRight(), parent.getPaddingTop() + mTitleHeight, mPaint);
@@ -104,7 +104,7 @@ public class TitleItemDecoration2 extends RecyclerView.ItemDecoration {
             if (position == 0) {//等于0肯定要有title的
                 outRect.set(0, mTitleHeight, 0, 0);
             } else {//其他的通过判断
-                if (null != mDatas.get(position).getTag() && !mDatas.get(position).getTag().equals(mDatas.get(position - 1).getTag())) {
+                if (null != mDatas.get(position).getBaseIndexTag() && !mDatas.get(position).getBaseIndexTag().equals(mDatas.get(position - 1).getBaseIndexTag())) {
                     outRect.set(0, mTitleHeight, 0, 0);//不为空 且跟前一个tag不一样了，说明是新的分类，也要title
                 } else {
                     outRect.set(0, 0, 0, 0);
