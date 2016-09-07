@@ -33,9 +33,6 @@
 so，本文开头我们就先用两节完善一下我们的ItemDecoration。然后进入正题：自定义View实现右侧索引导航栏IndexBar，对数据源的排序字段按照拼音排序，最后将RecyclerView和IndexBar联动起来，触摸IndexBar上相应字母，RecyclerView滚动到相应位置。(在屏幕中间显示的其实就是一个TextView，我们set个体IndexBar即可)
 由于大部分使用右侧索引导航栏的场景，都需要这几个固定步骤，对数据源排序，set给IndexBar，和RecyclerView联动等，所以最后再将其封装一把，成一个高度封装，因此扩展性不太高的控件，更方便使用，如果需要扩展的话，反正看完本文再其基础上修改应该很简单~。
 
-最终版预览：
-![这里写图片描述](http://img.blog.csdn.net/20160905233755209)
-
 本文摘要:
  1. 用ItemDecoration实现悬停头部**切换动画**
  2. 另一种**简单使用onDraw()和onDrawOver()**的姿势
@@ -44,4 +41,5 @@ so，本文开头我们就先用两节完善一下我们的ItemDecoration。然�
  5. 联动IndexBar和RecyclerView。
  6. 封装重复步骤，方便二次使用，并可**定制导航数据源**。
  
- 
+ 最终版预览：
+![这里写图片描述](http://img.blog.csdn.net/20160905233755209)
