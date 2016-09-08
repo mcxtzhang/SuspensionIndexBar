@@ -49,6 +49,7 @@ public class MainActivity extends Activity {
         //mRv.addItemDecoration(new TitleItemDecoration2(this,mDatas));
         mRv.addItemDecoration(new DividerItemDecoration(MainActivity.this, DividerItemDecoration.VERTICAL_LIST));
 
+        mDatas = null;
         //使用indexBar
         mTvSideBarHint = (TextView) findViewById(R.id.tvSideBarHint);//HintTextView
         mIndexBar = (IndexBar) findViewById(R.id.indexBar);//IndexBar
