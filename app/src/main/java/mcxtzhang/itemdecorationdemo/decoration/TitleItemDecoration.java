@@ -31,7 +31,7 @@ public class TitleItemDecoration extends RecyclerView.ItemDecoration {
 
     private int mTitleHeight;//title的高
     private static int COLOR_TITLE_BG = Color.parseColor("#FFDFDFDF");
-    private static int COLOR_TITLE_FONT = Color.parseColor("#FF000000");
+    private static int COLOR_TITLE_FONT = Color.parseColor("#FF999999");
     private static int mTitleFontSize;//title字体大小
 
 
@@ -45,6 +45,28 @@ public class TitleItemDecoration extends RecyclerView.ItemDecoration {
         mPaint.setTextSize(mTitleFontSize);
         mPaint.setAntiAlias(true);
         mInflater = LayoutInflater.from(context);
+    }
+
+
+    public TitleItemDecoration setmTitleHeight(int mTitleHeight) {
+        this.mTitleHeight = mTitleHeight;
+        return this;
+    }
+
+
+    public TitleItemDecoration setColorTitleBg(int colorTitleBg) {
+        COLOR_TITLE_BG = colorTitleBg;
+        return this;
+    }
+
+    public TitleItemDecoration setTitleFontSize(int mTitleFontSize) {
+        mPaint.setTextSize(mTitleFontSize);
+        return this;
+    }
+
+    public TitleItemDecoration setmDatas(List<? extends BaseIndexTagBean> mDatas) {
+        this.mDatas = mDatas;
+        return this;
     }
 
     @Override

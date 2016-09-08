@@ -43,13 +43,15 @@ public class MainActivity extends Activity {
         mRv.setLayoutManager(mManager = new LinearLayoutManager(this));
         //initDatas();
         initDatas(getResources().getStringArray(R.array.provinces));
+        //mDatas = new ArrayList<>();//测试为空或者null的情况 已经通过 2016 09 08
+
         mRv.setAdapter(mAdapter = new CityAdapter(this, mDatas));
         mRv.addItemDecoration(mDecoration = new TitleItemDecoration(this, mDatas));
         //如果add两个，那么按照先后顺序，依次渲染。
         //mRv.addItemDecoration(new TitleItemDecoration2(this,mDatas));
         mRv.addItemDecoration(new DividerItemDecoration(MainActivity.this, DividerItemDecoration.VERTICAL_LIST));
 
-        mDatas = null;
+
         //使用indexBar
         mTvSideBarHint = (TextView) findViewById(R.id.tvSideBarHint);//HintTextView
         mIndexBar = (IndexBar) findViewById(R.id.indexBar);//IndexBar

@@ -75,9 +75,9 @@ public class IndexBar extends View {
         for (int i = 0; i < n; i++) {
             int attr = typedArray.getIndex(i);
             //modify 2016 09 07 :如果引用成AndroidLib 资源都不是常量，无法使用switch case
-            if (attr == R.styleable.IndexBar_indexBarTextSize){
+            if (attr == R.styleable.IndexBar_indexBarTextSize) {
                 textSize = typedArray.getDimensionPixelSize(attr, textSize);
-            }else if (attr==R.styleable.IndexBar_indexBarPressBackground){
+            } else if (attr == R.styleable.IndexBar_indexBarPressBackground) {
                 mPressedBackground = typedArray.getColor(attr, mPressedBackground);
             }
 
@@ -226,6 +226,10 @@ public class IndexBar extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+        //add by zhangxutong 2016 09 08 :解决源数据为空 或者size为0的情况,
+        if (null == mIndexDatas || mIndexDatas.isEmpty()) {
+            return;
+        }
         mWidth = w;
         mHeight = h;
         mGapHeight = (mHeight - getPaddingTop() - getPaddingBottom()) / mIndexDatas.size();
@@ -296,6 +300,10 @@ public class IndexBar extends View {
      * @return
      */
     private void initSourceDatas() {
+        //add by zhangxutong 2016 09 08 :解决源数据为空 或者size为0的情况,
+        if (null == mSourceDatas || mSourceDatas.isEmpty()) {
+            return;
+        }
         int size = mSourceDatas.size();
         for (int i = 0; i < size; i++) {
             BaseIndexPinyinBean indexPinyinBean = mSourceDatas.get(i);
@@ -372,6 +380,10 @@ public class IndexBar extends View {
      * @return
      */
     private int getPosByTag(String tag) {
+        //add by zhangxutong 2016 09 08 :解决源数据为空 或者size为0的情况,
+        if (null == mSourceDatas || mSourceDatas.isEmpty()) {
+            return -1;
+        }
         if (TextUtils.isEmpty(tag)) {
             return -1;
         }
