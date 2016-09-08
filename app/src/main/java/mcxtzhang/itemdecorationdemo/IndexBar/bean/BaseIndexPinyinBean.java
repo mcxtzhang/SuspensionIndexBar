@@ -9,13 +9,13 @@ package mcxtzhang.itemdecorationdemo.IndexBar.bean;
  */
 
 public abstract class BaseIndexPinyinBean extends BaseIndexTagBean implements IIndexTargetInterface {
-    private String pyCity;//城市的拼音
+    private String baseIndexPinyin;//城市的拼音
 
-    public String getPyCity() {
-        return pyCity;
+    public String getBaseIndexPinyin() {
+        return baseIndexPinyin;
     }
 
-    public void setPyCity(String pyCity) {
-        this.pyCity = pyCity;
+    public void setBaseIndexPinyin(String baseIndexPinyin) {
+        this.baseIndexPinyin = baseIndexPinyin;
     }
 }

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <attr name="textSize" format="dimension" />
+    <attr name="indexBarTextSize" format="dimension" />
 
     <declare-styleable name="IndexBar">
-        <attr name="textSize" />
-        <attr name="pressBackground" format="color" />
+        <attr name="indexBarTextSize" />
+        <attr name="indexBarPressBackground" format="color" />
     </declare-styleable>
 </resources>

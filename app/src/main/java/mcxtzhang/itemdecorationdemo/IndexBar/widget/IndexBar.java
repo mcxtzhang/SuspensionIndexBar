@@ -74,7 +74,14 @@ public class IndexBar extends View {
         int n = typedArray.getIndexCount();
         for (int i = 0; i < n; i++) {
             int attr = typedArray.getIndex(i);
-            switch (attr) {
+            //modify 2016 09 07 :如果引用成AndroidLib 资源都不是常量，无法使用switch case
+            if (attr == R.styleable.IndexBar_indexBarTextSize){
+                textSize = typedArray.getDimensionPixelSize(attr, textSize);
+            }else if (attr==R.styleable.IndexBar_indexBarPressBackground){
+                mPressedBackground = typedArray.getColor(attr, mPressedBackground);
+            }
+
+/*            switch (attr) {
                 case R.styleable.IndexBar_textSize:
                     textSize = typedArray.getDimensionPixelSize(attr, textSize);
                     break;
@@ -82,7 +89,7 @@ public class IndexBar extends View {
                     mPressedBackground = typedArray.getColor(attr, mPressedBackground);
                 default:
                     break;
-            }
+            }*/
         }
         typedArray.recycle();
 
@@ -301,19 +308,19 @@ public class IndexBar extends View {
                 //如果c不是汉字，则返回String.valueOf(c)
                 pySb.append(Pinyin.toPinyin(target.charAt(i1)));
             }
-            indexPinyinBean.setPyCity(pySb.toString());//设置城市名全拼音
+            indexPinyinBean.setBaseIndexPinyin(pySb.toString());//设置城市名全拼音
 
             //以下代码设置城市拼音首字母
             String tagString = pySb.toString().substring(0, 1);
             if (tagString.matches("[A-Z]")) {//如果是A-Z字母开头
-                indexPinyinBean.setTag(tagString);
+                indexPinyinBean.setBaseIndexTag(tagString);
                 if (isNeedRealIndex) {//如果需要真实的索引数据源
                     if (!mIndexDatas.contains(tagString)) {//则判断是否已经将这个索引添加进去，若没有则添加
                         mIndexDatas.add(tagString);
                     }
                 }
             } else {//特殊字母这里统一用#处理
-                indexPinyinBean.setTag("#");
+                indexPinyinBean.setBaseIndexTag("#");
                 if (isNeedRealIndex) {//如果需要真实的索引数据源
                     if (!mIndexDatas.contains("#")) {
                         mIndexDatas.add("#");
@@ -346,12 +353,12 @@ public class IndexBar extends View {
         Collections.sort(mSourceDatas, new Comparator<BaseIndexPinyinBean>() {
             @Override
             public int compare(BaseIndexPinyinBean lhs, BaseIndexPinyinBean rhs) {
-                if (lhs.getTag().equals("#")) {
+                if (lhs.getBaseIndexTag().equals("#")) {
                     return 1;
-                } else if (rhs.getTag().equals("#")) {
+                } else if (rhs.getBaseIndexTag().equals("#")) {
                     return -1;
                 } else {
-                    return lhs.getPyCity().compareTo(rhs.getPyCity());
+                    return lhs.getBaseIndexPinyin().compareTo(rhs.getBaseIndexPinyin());
                 }
             }
         });
@@ -369,7 +376,7 @@ public class IndexBar extends View {
             return -1;
         }
         for (int i = 0; i < mSourceDatas.size(); i++) {
-            if (tag.equals(mSourceDatas.get(i).getTag())) {
+            if (tag.equals(mSourceDatas.get(i).getBaseIndexTag())) {
                 return i;
             }
         }
