@@ -59,6 +59,11 @@ public class TitleItemDecoration extends RecyclerView.ItemDecoration {
         return this;
     }
 
+    public TitleItemDecoration setColorTitleFont(int colorTitleFont) {
+        COLOR_TITLE_FONT = colorTitleFont;
+        return this;
+    }
+
     public TitleItemDecoration setTitleFontSize(int mTitleFontSize) {
         mPaint.setTextSize(mTitleFontSize);
         return this;
