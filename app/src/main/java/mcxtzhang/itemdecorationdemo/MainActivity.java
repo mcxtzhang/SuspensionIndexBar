@@ -49,7 +49,7 @@ public class MainActivity extends Activity {
         mRv.addItemDecoration(mDecoration = new TitleItemDecoration(this, mDatas));
         //如果add两个，那么按照先后顺序，依次渲染。
         //mRv.addItemDecoration(new TitleItemDecoration2(this,mDatas));
-        mRv.addItemDecoration(new DividerItemDecoration(MainActivity.this, DividerItemDecoration.VERTICAL_LIST));
+        mRv.addItemDecoration(new DividerItemDecoration(MainActivity.this));
 
 
         //使用indexBar
