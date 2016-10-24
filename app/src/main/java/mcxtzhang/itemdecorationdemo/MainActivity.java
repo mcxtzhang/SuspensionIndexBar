@@ -4,14 +4,15 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import mcxtzhang.itemdecorationdemo.IndexBar.widget.IndexBar;
 import mcxtzhang.itemdecorationdemo.decoration.DividerItemDecoration;
 import mcxtzhang.itemdecorationdemo.decoration.TitleItemDecoration;
-import mcxtzhang.itemdecorationdemo.IndexBar.widget.IndexBar;
 
 public class MainActivity extends Activity {
     private static final String TAG = "zxt";
@@ -76,6 +77,21 @@ public class MainActivity extends Activity {
             mDatas.add(cityBean);
         }
     }
+
+    /**
+     * 更新数据源
+     *
+     * @param view
+     */
+    public void updateDatas(View view) {
+        for (int i = 0; i < 99; i++) {
+            mDatas.add(new CityBean("东京"));
+            mDatas.add(new CityBean("大阪"));
+        }
+        mAdapter.notifyDataSetChanged();
+        mIndexBar.setmSourceDatas(mDatas);
+    }
+
 
 /*
     *//**

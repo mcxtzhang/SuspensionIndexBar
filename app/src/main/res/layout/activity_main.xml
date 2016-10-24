@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             xmlns:tools="http://schemas.android.com/tools"
+             android:layout_width="match_parent"
+             android:layout_height="match_parent">
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv"
@@ -18,7 +18,7 @@
         android:layout_height="match_parent"
         android:layout_gravity="right"
         app:indexBarPressBackground="@color/partTranslucent"
-        app:indexBarTextSize="16sp" />
+        app:indexBarTextSize="16sp"/>
 
     <TextView
         android:id="@+id/tvSideBarHint"
@@ -31,6 +31,13 @@
         android:textSize="48sp"
         android:visibility="gone"
         tools:text="A"
-        tools:visibility="visible" />
+        tools:visibility="visible"/>
+
+    <Button
+        android:onClick="updateDatas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:text="更新数据源"/>
 
 </FrameLayout>
