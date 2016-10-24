@@ -1,6 +1,7 @@
-package mcxtzhang.itemdecorationdemo;
+package mcxtzhang.itemdecorationdemo.weixin;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
+
+import mcxtzhang.itemdecorationdemo.meituan.MeiTuanActivity;
+import mcxtzhang.itemdecorationdemo.R;
 
 /**
  * Created by zhangxutong .
@@ -38,7 +42,8 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "pos:"+position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "pos:" + position, Toast.LENGTH_SHORT).show();
+                mContext.startActivity(new Intent(mContext, MeiTuanActivity.class));
             }
         });
     }
