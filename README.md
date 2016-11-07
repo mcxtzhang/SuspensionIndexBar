@@ -1,3 +1,16 @@
+# 更新记录：
+2016 11 07 ：
+1 考虑了HeaderView的情况，TitleItemDecoration增加了一个headerView的字段和方法：
+```
+new TitleItemDecoration(this, mDatas).setHeaderViewCount(mWrapperAdapter.getHeaderViewCount())
+```
+2 暂时抽离TitleItemDecoration至lib包，并且以 **接口形式接收数据** 。
+
+
+# to do list
+1 将所有可复用代码都抽离至lib
+
+
 # ItemDecorationIndexBar
 本项目是两篇博文的合体代码：
 
