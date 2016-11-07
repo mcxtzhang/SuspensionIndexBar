@@ -1,5 +1,7 @@
 package mcxtzhang.itemdecorationdemo.IndexBar.bean;
 
+import com.mcxtzhang.indexlib.ITitleCategoryInterface;
+
 /**
  * 介绍：索引类的标志位的实体基类
  * 作者：zhangxutong
@@ -8,7 +10,7 @@ package mcxtzhang.itemdecorationdemo.IndexBar.bean;
  * 时间： 16/09/04.
  */
 
-public class BaseIndexTagBean {
+public class BaseIndexTagBean implements ITitleCategoryInterface {
     private String baseIndexTag;//所属的分类（城市的汉语拼音首字母）
 
     public String getBaseIndexTag() {
@@ -17,5 +19,10 @@ public class BaseIndexTagBean {
 
     public void setBaseIndexTag(String baseIndexTag) {
         this.baseIndexTag = baseIndexTag;
+    }
+
+    @Override
+    public String getTitleCategory() {
+        return baseIndexTag;
     }
 }

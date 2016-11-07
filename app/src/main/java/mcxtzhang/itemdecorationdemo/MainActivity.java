@@ -7,12 +7,13 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.mcxtzhang.indexlib.TitleItemDecoration;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import mcxtzhang.itemdecorationdemo.IndexBar.widget.IndexBar;
 import mcxtzhang.itemdecorationdemo.decoration.DividerItemDecoration;
-import mcxtzhang.itemdecorationdemo.decoration.TitleItemDecoration;
 
 public class MainActivity extends Activity {
     private static final String TAG = "zxt";
@@ -46,8 +47,18 @@ public class MainActivity extends Activity {
         initDatas(getResources().getStringArray(R.array.provinces));
         //mDatas = new ArrayList<>();//测试为空或者null的情况 已经通过 2016 09 08
 
-        mRv.setAdapter(mAdapter = new CityAdapter(this, mDatas));
-        mRv.addItemDecoration(mDecoration = new TitleItemDecoration(this, mDatas));
+
+        mAdapter = new CityAdapter(this, mDatas);
+        HeaderRecyclerAndFooterWrapperAdapter mWrapperAdapter = new HeaderRecyclerAndFooterWrapperAdapter(mAdapter) {
+            @Override
+            protected void onBindHeaderHolder(ViewHolder holder, int headerPos, int layoutId, Object o) {
+                holder.setText(R.id.tvCity, (String) o);
+            }
+        };
+        mWrapperAdapter.setHeaderView(R.layout.item_city, "测试头部");
+
+        mRv.setAdapter(mWrapperAdapter);
+        mRv.addItemDecoration(mDecoration = new TitleItemDecoration(this, mDatas).setHeaderViewCount(mWrapperAdapter.getHeaderViewCount()));
         //如果add两个，那么按照先后顺序，依次渲染。
         //mRv.addItemDecoration(new TitleItemDecoration2(this,mDatas));
         mRv.addItemDecoration(new DividerItemDecoration(MainActivity.this, DividerItemDecoration.VERTICAL_LIST));

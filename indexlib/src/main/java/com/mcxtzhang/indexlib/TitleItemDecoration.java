@@ -1,4 +1,4 @@
-package mcxtzhang.itemdecorationdemo.decoration;
+package com.mcxtzhang.indexlib;
 
 import android.content.Context;
 import android.graphics.Canvas;
@@ -14,16 +14,16 @@ import android.view.View;
 
 import java.util.List;
 
-import mcxtzhang.itemdecorationdemo.IndexBar.bean.BaseIndexTagBean;
-
 /**
- * 有分类title的 ItemDecoration
- * Created by zhangxutong .
- * Date: 16/08/28
+ * 介绍：分类悬停Decoration
+ * 作者：zhangxutong
+ * 邮箱：mcxtzhang@163.com
+ * 主页：http://blog.csdn.net/zxt0601
+ * 时间： 2016/11/7.
  */
 
 public class TitleItemDecoration extends RecyclerView.ItemDecoration {
-    private List<? extends BaseIndexTagBean> mDatas;
+    private List<? extends ITitleCategoryInterface> mDatas;
     private Paint mPaint;
     private Rect mBounds;//用于存放测量文字Rect
 
@@ -34,8 +34,10 @@ public class TitleItemDecoration extends RecyclerView.ItemDecoration {
     private static int COLOR_TITLE_FONT = Color.parseColor("#FF999999");
     private static int mTitleFontSize;//title字体大小
 
+    private int mHeaderViewCount = 0;
 
-    public TitleItemDecoration(Context context, List<? extends BaseIndexTagBean> datas) {
+
+    public TitleItemDecoration(Context context, List<? extends ITitleCategoryInterface> datas) {
         super();
         mDatas = datas;
         mPaint = new Paint();
@@ -69,8 +71,17 @@ public class TitleItemDecoration extends RecyclerView.ItemDecoration {
         return this;
     }
 
-    public TitleItemDecoration setmDatas(List<? extends BaseIndexTagBean> mDatas) {
+    public TitleItemDecoration setmDatas(List<? extends ITitleCategoryInterface> mDatas) {
         this.mDatas = mDatas;
+        return this;
+    }
+
+    public int getHeaderViewCount() {
+        return mHeaderViewCount;
+    }
+
+    public TitleItemDecoration setHeaderViewCount(int headerViewCount) {
+        mHeaderViewCount = headerViewCount;
         return this;
     }
 
@@ -85,8 +96,9 @@ public class TitleItemDecoration extends RecyclerView.ItemDecoration {
             final RecyclerView.LayoutParams params = (RecyclerView.LayoutParams) child
                     .getLayoutParams();
             int position = params.getViewLayoutPosition();
-            if (mDatas == null ||mDatas.isEmpty() || position > mDatas.size() - 1) {//pos为1，size为1，1>0? true
-                return;//越界
+            position -= getHeaderViewCount();
+            if (mDatas == null || mDatas.isEmpty() || position > mDatas.size() - 1 || position < 0) {//pos为1，size为1，1>0? true
+                continue;//越界
             }
             //我记得Rv的item position在重置时可能为-1.保险点判断一下吧
             if (position > -1) {
@@ -94,7 +106,7 @@ public class TitleItemDecoration extends RecyclerView.ItemDecoration {
                     drawTitleArea(c, left, right, child, params, position);
 
                 } else {//其他的通过判断
-                    if (null != mDatas.get(position).getBaseIndexTag() && !mDatas.get(position).getBaseIndexTag().equals(mDatas.get(position - 1).getBaseIndexTag())) {
+                    if (null != mDatas.get(position).getTitleCategory() && !mDatas.get(position).getTitleCategory().equals(mDatas.get(position - 1).getTitleCategory())) {
                         //不为空 且跟前一个tag不一样了，说明是新的分类，也要title
                         drawTitleArea(c, left, right, child, params, position);
                     } else {
@@ -123,24 +135,25 @@ public class TitleItemDecoration extends RecyclerView.ItemDecoration {
         Paint.FontMetricsInt fontMetrics = mPaint.getFontMetricsInt();
         int baseline = (getMeasuredHeight() - fontMetrics.bottom + fontMetrics.top) / 2 - fontMetrics.top;*/
 
-        mPaint.getTextBounds(mDatas.get(position).getBaseIndexTag(), 0, mDatas.get(position).getBaseIndexTag().length(), mBounds);
-        c.drawText(mDatas.get(position).getBaseIndexTag(), child.getPaddingLeft(), child.getTop() - params.topMargin - (mTitleHeight / 2 - mBounds.height() / 2), mPaint);
+        mPaint.getTextBounds(mDatas.get(position).getTitleCategory(), 0, mDatas.get(position).getTitleCategory().length(), mBounds);
+        c.drawText(mDatas.get(position).getTitleCategory(), child.getPaddingLeft(), child.getTop() - params.topMargin - (mTitleHeight / 2 - mBounds.height() / 2), mPaint);
     }
 
     @Override
     public void onDrawOver(Canvas c, final RecyclerView parent, RecyclerView.State state) {//最后调用 绘制在最上层
         int pos = ((LinearLayoutManager) (parent.getLayoutManager())).findFirstVisibleItemPosition();
-        if (mDatas == null ||mDatas.isEmpty() || pos > mDatas.size() - 1) {//pos为1，size为1，1>0? true
+        pos -= getHeaderViewCount();
+        if (mDatas == null || mDatas.isEmpty() || pos > mDatas.size() - 1 || pos < 0) {//pos为1，size为1，1>0? true
             return;//越界
         }
 
-        String tag = mDatas.get(pos).getBaseIndexTag();
+        String tag = mDatas.get(pos).getTitleCategory();
         //View child = parent.getChildAt(pos);
-        View child = parent.findViewHolderForLayoutPosition(pos).itemView;//出现一个奇怪的bug，有时候child为空，所以将 child = parent.getChildAt(i)。-》 parent.findViewHolderForLayoutPosition(pos).itemView
+        View child = parent.findViewHolderForLayoutPosition(pos + getHeaderViewCount()).itemView;//出现一个奇怪的bug，有时候child为空，所以将 child = parent.getChildAt(i)。-》 parent.findViewHolderForLayoutPosition(pos).itemView
 
         boolean flag = false;//定义一个flag，Canvas是否位移过的标志
         if ((pos + 1) < mDatas.size()) {//防止数组越界（一般情况不会出现）
-            if (null != tag && !tag.equals(mDatas.get(pos + 1).getBaseIndexTag())) {//当前第一个可见的Item的tag，不等于其后一个item的tag，说明悬浮的View要切换了
+            if (null != tag && !tag.equals(mDatas.get(pos + 1).getTitleCategory())) {//当前第一个可见的Item的tag，不等于其后一个item的tag，说明悬浮的View要切换了
                 Log.d("zxt", "onDrawOver() called with: c = [" + child.getTop());//当getTop开始变负，它的绝对值，是第一个可见的Item移出屏幕的距离，
                 if (child.getHeight() + child.getTop() < mTitleHeight) {//当第一个可见的item在屏幕中还剩的高度小于title区域的高度时，我们也该开始做悬浮Title的“交换动画”
                     c.save();//每次绘制前 保存当前Canvas状态，
@@ -230,15 +243,18 @@ public class TitleItemDecoration extends RecyclerView.ItemDecoration {
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
         super.getItemOffsets(outRect, view, parent, state);
         int position = ((RecyclerView.LayoutParams) view.getLayoutParams()).getViewLayoutPosition();
-        if (mDatas == null ||mDatas.isEmpty() || position > mDatas.size() - 1) {//pos为1，size为1，1>0? true
+        position -= getHeaderViewCount();
+        if (mDatas == null || mDatas.isEmpty() || position > mDatas.size() - 1) {//pos为1，size为1，1>0? true
             return;//越界
         }
         //我记得Rv的item position在重置时可能为-1.保险点判断一下吧
         if (position > -1) {
-            if (position == 0) {//等于0肯定要有title的
+            //等于0肯定要有title的,
+            // 2016 11 07 add 考虑到headerView 等于0 也不应该有title
+            if (position == 0) {
                 outRect.set(0, mTitleHeight, 0, 0);
             } else {//其他的通过判断
-                if (null != mDatas.get(position).getBaseIndexTag() && !mDatas.get(position).getBaseIndexTag().equals(mDatas.get(position - 1).getBaseIndexTag())) {
+                if (null != mDatas.get(position).getTitleCategory() && !mDatas.get(position).getTitleCategory().equals(mDatas.get(position - 1).getTitleCategory())) {
                     outRect.set(0, mTitleHeight, 0, 0);//不为空 且跟前一个tag不一样了，说明是新的分类，也要title
                 } else {
                     outRect.set(0, 0, 0, 0);
