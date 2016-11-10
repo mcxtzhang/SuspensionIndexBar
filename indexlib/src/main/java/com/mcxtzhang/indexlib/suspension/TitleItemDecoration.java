@@ -1,4 +1,4 @@
-package com.mcxtzhang.indexlib;
+package com.mcxtzhang.indexlib.suspension;
 
 import android.content.Context;
 import android.graphics.Canvas;

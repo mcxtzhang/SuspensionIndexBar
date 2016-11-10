@@ -1,4 +1,4 @@
-package com.mcxtzhang.indexlib;
+package com.mcxtzhang.indexlib.suspension;
 
 /**
  * 介绍：分类悬停的接口

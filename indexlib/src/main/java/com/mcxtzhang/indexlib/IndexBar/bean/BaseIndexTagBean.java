@@ -1,6 +1,6 @@
 package com.mcxtzhang.indexlib.IndexBar.bean;
 
-import com.mcxtzhang.indexlib.ITitleCategoryInterface;
+import com.mcxtzhang.indexlib.suspension.ITitleCategoryInterface;
 
 /**
  * 介绍：索引类的标志位的实体基类
