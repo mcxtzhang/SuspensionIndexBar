@@ -70,7 +70,8 @@ public class MainActivity extends Activity {
         mIndexBar.setmPressedShowTextView(mTvSideBarHint)//设置HintTextView
                 .setNeedRealIndex(true)//设置需要真实的索引
                 .setmLayoutManager(mManager)//设置RecyclerView的LayoutManager
-                .setmSourceDatas(mDatas);//设置数据源
+                .setmSourceDatas(mDatas)//设置数据
+                .setHeaderViewCount(mWrapperAdapter.getHeaderViewCount());//设置HeaderView数量
 
     }
 

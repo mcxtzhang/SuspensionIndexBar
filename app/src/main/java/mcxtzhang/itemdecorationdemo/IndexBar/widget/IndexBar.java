@@ -52,6 +52,7 @@ public class IndexBar extends View {
     private TextView mPressedShowTextView;//用于特写显示正在被触摸的index值
     private List<? extends BaseIndexPinyinBean> mSourceDatas;//Adapter的数据源
     private LinearLayoutManager mLayoutManager;
+    private int mHeaderViewCount = 0;
 
     public IndexBar(Context context) {
         this(context, null);
@@ -64,6 +65,15 @@ public class IndexBar extends View {
     public IndexBar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs, defStyleAttr);
+    }
+
+    public int getHeaderViewCount() {
+        return mHeaderViewCount;
+    }
+
+    public IndexBar setHeaderViewCount(int headerViewCount) {
+        mHeaderViewCount = headerViewCount;
+        return this;
     }
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -389,7 +399,7 @@ public class IndexBar extends View {
         }
         for (int i = 0; i < mSourceDatas.size(); i++) {
             if (tag.equals(mSourceDatas.get(i).getBaseIndexTag())) {
-                return i;
+                return i + getHeaderViewCount();
             }
         }
         return -1;
