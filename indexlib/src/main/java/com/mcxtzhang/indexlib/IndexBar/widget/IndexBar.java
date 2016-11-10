@@ -207,7 +207,7 @@ public class IndexBar extends View {
                     pressI = mIndexDatas.size() - 1;
                 }
                 //回调监听器
-                if (null != mOnIndexPressedListener) {
+                if (null != mOnIndexPressedListener && pressI > -1 && pressI < mIndexDatas.size()) {
                     mOnIndexPressedListener.onIndexPressed(pressI, mIndexDatas.get(pressI));
                 }
                 break;
@@ -233,9 +233,8 @@ public class IndexBar extends View {
         }
         mWidth = w;
         mHeight = h;
-        mGapHeight = (mHeight - getPaddingTop() - getPaddingBottom()) / mIndexDatas.size();
+        computeGapHeight();
     }
-
 
     /**
      * 当前被按下的index的监听器
@@ -291,6 +290,7 @@ public class IndexBar extends View {
     public IndexBar setmSourceDatas(List<? extends BaseIndexPinyinBean> mSourceDatas) {
         this.mSourceDatas = mSourceDatas;
         initSourceDatas();//对数据源进行初始化
+        computeGapHeight();
         return this;
     }
 
@@ -414,5 +414,13 @@ public class IndexBar extends View {
             }
         }
         return -1;
+    }
+
+    /**
+     * 在数据源改变、控件size改变时，调用。
+     * 计算gapHeight
+     */
+    private void computeGapHeight() {
+        mGapHeight = (mHeight - getPaddingTop() - getPaddingBottom()) / mIndexDatas.size();
     }
 }

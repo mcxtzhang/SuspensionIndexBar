@@ -27,6 +27,15 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
         mInflater = LayoutInflater.from(mContext);
     }
 
+    public List<CityBean> getDatas() {
+        return mDatas;
+    }
+
+    public CityAdapter setDatas(List<CityBean> datas) {
+        mDatas = datas;
+        return this;
+    }
+
     @Override
     public CityAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         return new ViewHolder(mInflater.inflate(R.layout.item_city, parent, false));
