@@ -10,7 +10,7 @@ import com.mcxtzhang.indexlib.suspension.ITitleCategoryInterface;
  * 时间： 16/09/04.
  */
 
-public class BaseIndexTagBean implements ITitleCategoryInterface {
+public abstract class BaseIndexTagBean implements ITitleCategoryInterface {
     private String baseIndexTag;//所属的分类（城市的汉语拼音首字母）
 
     public String getBaseIndexTag() {
@@ -25,4 +25,5 @@ public class BaseIndexTagBean implements ITitleCategoryInterface {
     public String getTitleCategory() {
         return baseIndexTag;
     }
+
 }

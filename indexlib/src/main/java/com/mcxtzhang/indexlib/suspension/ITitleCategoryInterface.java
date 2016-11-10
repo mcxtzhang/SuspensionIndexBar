@@ -9,5 +9,7 @@ package com.mcxtzhang.indexlib.suspension;
  */
 
 public interface ITitleCategoryInterface {
-    String getTitleCategory();
+    String getTitleCategory();//悬停的title
+
+    boolean isShowSuspension();//是否需要显示悬停title
 }

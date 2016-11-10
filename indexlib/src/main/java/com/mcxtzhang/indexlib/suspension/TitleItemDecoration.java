@@ -97,7 +97,8 @@ public class TitleItemDecoration extends RecyclerView.ItemDecoration {
                     .getLayoutParams();
             int position = params.getViewLayoutPosition();
             position -= getHeaderViewCount();
-            if (mDatas == null || mDatas.isEmpty() || position > mDatas.size() - 1 || position < 0) {//pos为1，size为1，1>0? true
+            //pos为1，size为1，1>0? true
+            if (mDatas == null || mDatas.isEmpty() || position > mDatas.size() - 1 || position < 0 || !mDatas.get(position).isShowSuspension()) {
                 continue;//越界
             }
             //我记得Rv的item position在重置时可能为-1.保险点判断一下吧
@@ -143,7 +144,8 @@ public class TitleItemDecoration extends RecyclerView.ItemDecoration {
     public void onDrawOver(Canvas c, final RecyclerView parent, RecyclerView.State state) {//最后调用 绘制在最上层
         int pos = ((LinearLayoutManager) (parent.getLayoutManager())).findFirstVisibleItemPosition();
         pos -= getHeaderViewCount();
-        if (mDatas == null || mDatas.isEmpty() || pos > mDatas.size() - 1 || pos < 0) {//pos为1，size为1，1>0? true
+        //pos为1，size为1，1>0? true
+        if (mDatas == null || mDatas.isEmpty() || pos > mDatas.size() - 1 || pos < 0 || !mDatas.get(pos).isShowSuspension()) {
             return;//越界
         }
 
@@ -241,6 +243,7 @@ public class TitleItemDecoration extends RecyclerView.ItemDecoration {
 
     @Override
     public void getItemOffsets(Rect outRect, View view, RecyclerView parent, RecyclerView.State state) {
+        //super里会先设置0 0 0 0
         super.getItemOffsets(outRect, view, parent, state);
         int position = ((RecyclerView.LayoutParams) view.getLayoutParams()).getViewLayoutPosition();
         position -= getHeaderViewCount();
@@ -249,15 +252,18 @@ public class TitleItemDecoration extends RecyclerView.ItemDecoration {
         }
         //我记得Rv的item position在重置时可能为-1.保险点判断一下吧
         if (position > -1) {
+            ITitleCategoryInterface titleCategoryInterface = mDatas.get(position);
             //等于0肯定要有title的,
             // 2016 11 07 add 考虑到headerView 等于0 也不应该有title
-            if (position == 0) {
-                outRect.set(0, mTitleHeight, 0, 0);
-            } else {//其他的通过判断
-                if (null != mDatas.get(position).getTitleCategory() && !mDatas.get(position).getTitleCategory().equals(mDatas.get(position - 1).getTitleCategory())) {
-                    outRect.set(0, mTitleHeight, 0, 0);//不为空 且跟前一个tag不一样了，说明是新的分类，也要title
-                } else {
-                    outRect.set(0, 0, 0, 0);
+            // 2016 11 10 add 通过接口里的isShowSuspension() 方法，先过滤掉不想显示悬停的item
+            if (titleCategoryInterface.isShowSuspension()) {
+                if (position == 0) {
+                    outRect.set(0, mTitleHeight, 0, 0);
+                } else {//其他的通过判断
+                    if (null != titleCategoryInterface.getTitleCategory() && !titleCategoryInterface.getTitleCategory().equals(mDatas.get(position - 1).getTitleCategory())) {
+                        //不为空 且跟前一个tag不一样了，说明是新的分类，也要title
+                        outRect.set(0, mTitleHeight, 0, 0);
+                    }
                 }
             }
         }

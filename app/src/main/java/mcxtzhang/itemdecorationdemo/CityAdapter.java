@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -38,9 +39,10 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext, "pos:"+position, Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "pos:" + position, Toast.LENGTH_SHORT).show();
             }
         });
+        holder.avatar.setImageResource(R.drawable.friend);
     }
 
     @Override
@@ -50,10 +52,12 @@ public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvCity;
+        ImageView avatar;
 
         public ViewHolder(View itemView) {
             super(itemView);
             tvCity = (TextView) itemView.findViewById(R.id.tvCity);
+            avatar = (ImageView) itemView.findViewById(R.id.ivAvatar);
         }
     }
 }
