@@ -1,4 +1,4 @@
-package mcxtzhang.itemdecorationdemo.IndexBar.bean;
+package com.mcxtzhang.indexlib.IndexBar.bean;
 
 import com.mcxtzhang.indexlib.ITitleCategoryInterface;
 

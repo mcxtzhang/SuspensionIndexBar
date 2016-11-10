@@ -1,4 +1,4 @@
-package mcxtzhang.itemdecorationdemo.IndexBar.widget;
+package com.mcxtzhang.indexlib.IndexBar.widget;
 
 import android.content.Context;
 import android.content.res.TypedArray;
@@ -15,6 +15,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.github.promeg.pinyinhelper.Pinyin;
+import com.mcxtzhang.indexlib.IndexBar.bean.BaseIndexPinyinBean;
+import com.mcxtzhang.indexlib.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -22,8 +24,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import mcxtzhang.itemdecorationdemo.R;
-import mcxtzhang.itemdecorationdemo.IndexBar.bean.BaseIndexPinyinBean;
 
 /**
  * 介绍：索引右侧边栏

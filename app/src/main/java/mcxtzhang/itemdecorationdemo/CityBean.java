@@ -1,6 +1,6 @@
 package mcxtzhang.itemdecorationdemo;
 
-import mcxtzhang.itemdecorationdemo.IndexBar.bean.BaseIndexPinyinBean;
+import com.mcxtzhang.indexlib.IndexBar.bean.BaseIndexPinyinBean;
 
 /**
  * Created by zhangxutong .

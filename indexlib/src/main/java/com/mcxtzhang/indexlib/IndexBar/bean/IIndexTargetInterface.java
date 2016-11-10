@@ -1,4 +1,4 @@
-package mcxtzhang.itemdecorationdemo.IndexBar.bean;
+package com.mcxtzhang.indexlib.IndexBar.bean;
 
 /**
  * 介绍：某个需要被处理的字段的接口

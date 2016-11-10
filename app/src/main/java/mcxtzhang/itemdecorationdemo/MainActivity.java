@@ -12,7 +12,7 @@ import com.mcxtzhang.indexlib.TitleItemDecoration;
 import java.util.ArrayList;
 import java.util.List;
 
-import mcxtzhang.itemdecorationdemo.IndexBar.widget.IndexBar;
+import com.mcxtzhang.indexlib.IndexBar.widget.IndexBar;
 import mcxtzhang.itemdecorationdemo.decoration.DividerItemDecoration;
 
 public class MainActivity extends Activity {

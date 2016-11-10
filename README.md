@@ -1,6 +1,16 @@
 # 更新记录：
+2016 11 10 :
+1 IndexBar也考虑了HeaderView不需要索引的情况：
+```
+        mIndexBar.setmPressedShowTextView(mTvSideBarHint)//设置HintTextView
+                .setNeedRealIndex(true)//设置需要真实的索引
+                .setmLayoutManager(mManager)//设置RecyclerView的LayoutManager
+                .setmSourceDatas(mDatas)//设置数据
+                .setHeaderViewCount(mWrapperAdapter.getHeaderViewCount());//设置HeaderView数量
+```
+
 2016 11 07 ：
-1 考虑了HeaderView的情况，TitleItemDecoration增加了一个headerView的字段和方法：
+1 考虑了HeaderView不需要索引的情况，TitleItemDecoration增加了一个headerView的字段和方法：
 ```
 new TitleItemDecoration(this, mDatas).setHeaderViewCount(mWrapperAdapter.getHeaderViewCount())
 ```
