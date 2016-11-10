@@ -35,6 +35,9 @@ import java.util.List;
 
 public class IndexBar extends View {
     private static final String TAG = "zxt/IndexBar";
+    public static String INDEX_STRING_TOP = "↑";//模仿微信的Top数据
+    //public static String INDEX_TOP_FLAG = "0";//0代表数据源的头
+
     public static String[] INDEX_STRING = {"A", "B", "C", "D", "E", "F", "G", "H", "I",
             "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
             "W", "X", "Y", "Z", "#"};//#在最后面（默认的数据源）
@@ -318,20 +321,32 @@ public class IndexBar extends View {
         for (int i = 0; i < size; i++) {
             BaseIndexPinyinBean indexPinyinBean = mSourceDatas.get(i);
             StringBuilder pySb = new StringBuilder();
-            String target = indexPinyinBean.getTarget();//取出需要被拼音化的字段
-            //遍历target的每个char得到它的全拼音
-            for (int i1 = 0; i1 < target.length(); i1++) {
-                //利用TinyPinyin将char转成拼音
-                //查看源码，方法内 如果char为汉字，则返回大写拼音
-                //如果c不是汉字，则返回String.valueOf(c)
-                pySb.append(Pinyin.toPinyin(target.charAt(i1)).toUpperCase());
+            //add by zhangxutong 2016 11 10 如果不是top 才转拼音，否则不用转了
+            if (indexPinyinBean.isNeedToPinyin()) {
+                String target = indexPinyinBean.getTarget();//取出需要被拼音化的字段
+                //遍历target的每个char得到它的全拼音
+                for (int i1 = 0; i1 < target.length(); i1++) {
+                    //利用TinyPinyin将char转成拼音
+                    //查看源码，方法内 如果char为汉字，则返回大写拼音
+                    //如果c不是汉字，则返回String.valueOf(c)
+                    pySb.append(Pinyin.toPinyin(target.charAt(i1)).toUpperCase());
+                }
+                indexPinyinBean.setBaseIndexPinyin(pySb.toString());//设置城市名全拼音
+            } else {
+                pySb.append(INDEX_STRING_TOP);
             }
-            indexPinyinBean.setBaseIndexPinyin(pySb.toString());//设置城市名全拼音
 
             //以下代码设置城市拼音首字母
             String tagString = pySb.toString().substring(0, 1);
             if (tagString.matches("[A-Z]")) {//如果是A-Z字母开头
                 indexPinyinBean.setBaseIndexTag(tagString);
+                if (isNeedRealIndex) {//如果需要真实的索引数据源
+                    if (!mIndexDatas.contains(tagString)) {//则判断是否已经将这个索引添加进去，若没有则添加
+                        mIndexDatas.add(tagString);
+                    }
+                }
+            } else if (tagString.equals(INDEX_STRING_TOP)) {
+                indexPinyinBean.setBaseIndexTag(INDEX_STRING_TOP);
                 if (isNeedRealIndex) {//如果需要真实的索引数据源
                     if (!mIndexDatas.contains(tagString)) {//则判断是否已经将这个索引添加进去，若没有则添加
                         mIndexDatas.add(tagString);
@@ -357,7 +372,11 @@ public class IndexBar extends View {
         Collections.sort(mIndexDatas, new Comparator<String>() {
             @Override
             public int compare(String lhs, String rhs) {
-                if (lhs.equals("#")) {
+                if (lhs.equals(INDEX_STRING_TOP)) {
+                    return -1;
+                } else if (rhs.equals(INDEX_STRING_TOP)) {
+                    return 1;
+                } else if (lhs.equals("#")) {
                     return 1;
                 } else if (rhs.equals("#")) {
                     return -1;
@@ -371,7 +390,11 @@ public class IndexBar extends View {
         Collections.sort(mSourceDatas, new Comparator<BaseIndexPinyinBean>() {
             @Override
             public int compare(BaseIndexPinyinBean lhs, BaseIndexPinyinBean rhs) {
-                if (lhs.getBaseIndexTag().equals("#")) {
+                if (lhs.getBaseIndexTag().equals(INDEX_STRING_TOP)) {
+                    return -1;
+                } else if (rhs.getBaseIndexTag().equals(INDEX_STRING_TOP)) {
+                    return 1;
+                } else if (lhs.getBaseIndexTag().equals("#")) {
                     return 1;
                 } else if (rhs.getBaseIndexTag().equals("#")) {
                     return -1;

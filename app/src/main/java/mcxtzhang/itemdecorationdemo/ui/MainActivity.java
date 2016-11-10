@@ -1,4 +1,4 @@
-package mcxtzhang.itemdecorationdemo;
+package mcxtzhang.itemdecorationdemo.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -7,12 +7,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.TextView;
 
+import com.mcxtzhang.indexlib.IndexBar.widget.IndexBar;
 import com.mcxtzhang.indexlib.suspension.TitleItemDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import com.mcxtzhang.indexlib.IndexBar.widget.IndexBar;
+import mcxtzhang.itemdecorationdemo.CityAdapter;
+import mcxtzhang.itemdecorationdemo.CityBean;
+import mcxtzhang.itemdecorationdemo.HeaderRecyclerAndFooterWrapperAdapter;
+import mcxtzhang.itemdecorationdemo.R;
+import mcxtzhang.itemdecorationdemo.ViewHolder;
 import mcxtzhang.itemdecorationdemo.decoration.DividerItemDecoration;
 
 public class MainActivity extends Activity {
