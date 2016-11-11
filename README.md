@@ -1,3 +1,37 @@
+# ItemDecorationIndexBar
+相关博文：
+http://blog.csdn.net/zxt0601/article/details/52355199
+http://blog.csdn.net/zxt0601/article/details/52420706
+
+喜欢随手点个star 多谢 
+
+##  在哪里找到我：
+我的github：
+
+https://github.com/mcxtzhang
+
+我的CSDN博客：
+
+http://blog.csdn.net/zxt0601
+
+我的稀土掘金：
+
+http://gold.xitu.io/user/56de210b816dfa0052e66495
+
+我的简书：
+
+http://www.jianshu.com/users/8e91ff99b072/timeline
+
+# 效果一览：
+高仿微信通讯录界面（WeChatActivity）:
+
+![image](https://github.com/mcxtzhang/ItemDecorationIndexBar/blob/master/gif/weixin.gif)
+
+普通城市列表界面(MainActivity):
+
+![image](https://github.com/mcxtzhang/ItemDecorationIndexBar/blob/master/gif/citylist.gif)
+
+
 # 更新记录：
 2016 11 10 :
 1 IndexBar也考虑了HeaderView不需要索引的情况：
