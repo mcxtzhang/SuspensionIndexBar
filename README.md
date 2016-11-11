@@ -29,7 +29,7 @@ http://www.jianshu.com/users/8e91ff99b072/timeline
 
 普通城市列表界面(MainActivity):
 
-![image](https://github.com/mcxtzhang/ItemDecorationIndexBar/blob/master/gif/citylist.gif)
+![image](https://github.com/mcxtzhang/ItemDecorationIndexBar/blob/master/gif/citylist)
 
 
 # 更新记录：
