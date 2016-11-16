@@ -17,9 +17,9 @@ import java.util.List;
  */
 
 public class CityAdapter extends RecyclerView.Adapter<CityAdapter.ViewHolder> {
-    private Context mContext;
-    private List<CityBean> mDatas;
-    private LayoutInflater mInflater;
+    protected Context mContext;
+    protected List<CityBean> mDatas;
+    protected LayoutInflater mInflater;
 
     public CityAdapter(Context mContext, List<CityBean> mDatas) {
         this.mContext = mContext;

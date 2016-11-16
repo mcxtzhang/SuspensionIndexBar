@@ -31,6 +31,10 @@ http://www.jianshu.com/users/8e91ff99b072/timeline
 
 ![image](https://github.com/mcxtzhang/ItemDecorationIndexBar/blob/master/gif/citylist)
 
+配合我另一个库组装的效果(ItemDecorationIndexBar + SwipeMenuLayout)：
+(SwipeDelMenuLayout : https://github.com/mcxtzhang/SwipeDelMenuLayout)
+
+![image](https://github.com/mcxtzhang/ItemDecorationIndexBar/blob/master/gif/ItemDecorationIndexBar_SwipeDel.gif)
 
 # 更新记录：
 2016 11 10 :

@@ -9,9 +9,13 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.MainActivity">
-
         </activity>
         <activity android:name=".ui.WeChatActivity">
+        </activity>
+        <activity android:name=".ui.SwipeDelMenuActivity">
+
+        </activity>
+        <activity android:name=".ui.LauncherActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 
