@@ -24,4 +24,5 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile project (':indexlib')
+    compile 'com.github.mcxtzhang:SwipeDelMenuLayout:V1.2.2'
 }
