@@ -1,4 +1,4 @@
-package mcxtzhang.itemdecorationdemo;
+package mcxtzhang.itemdecorationdemo.adapter;
 
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +10,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.List;
+
+import mcxtzhang.itemdecorationdemo.CityBean;
+import mcxtzhang.itemdecorationdemo.R;
 
 /**
  * Created by zhangxutong .

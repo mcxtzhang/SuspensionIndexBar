@@ -2,6 +2,7 @@ package mcxtzhang.itemdecorationdemo.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -13,12 +14,11 @@ import com.mcxtzhang.indexlib.suspension.TitleItemDecoration;
 import java.util.ArrayList;
 import java.util.List;
 
-import mcxtzhang.itemdecorationdemo.CityAdapter;
 import mcxtzhang.itemdecorationdemo.CityBean;
 import mcxtzhang.itemdecorationdemo.HeaderRecyclerAndFooterWrapperAdapter;
 import mcxtzhang.itemdecorationdemo.R;
 import mcxtzhang.itemdecorationdemo.ViewHolder;
-import mcxtzhang.itemdecorationdemo.decoration.DividerItemDecoration;
+import mcxtzhang.itemdecorationdemo.adapter.CityAdapter;
 
 public class MainActivity extends Activity {
     private static final String TAG = "zxt";
@@ -48,7 +48,7 @@ public class MainActivity extends Activity {
 
 
         mRv = (RecyclerView) findViewById(R.id.rv);
-        mRv.setLayoutManager(mManager = new LinearLayoutManager(this));
+        mRv.setLayoutManager(mManager = new GridLayoutManager(this,2));
         //initDatas();
 
         //mDatas = new ArrayList<>();//测试为空或者null的情况 已经通过 2016 09 08
@@ -65,9 +65,10 @@ public class MainActivity extends Activity {
 
         mRv.setAdapter(mHeaderAdapter);
         mRv.addItemDecoration(mDecoration = new TitleItemDecoration(this, mDatas).setHeaderViewCount(mHeaderAdapter.getHeaderViewCount()));
+
         //如果add两个，那么按照先后顺序，依次渲染。
         //mRv.addItemDecoration(new TitleItemDecoration2(this,mDatas));
-        mRv.addItemDecoration(new DividerItemDecoration(MainActivity.this, DividerItemDecoration.VERTICAL_LIST));
+        //mRv.addItemDecoration(new DividerItemDecoration(MainActivity.this, DividerItemDecoration.VERTICAL_LIST));
 
 
         //使用indexBar
@@ -104,8 +105,10 @@ public class MainActivity extends Activity {
                         .setHeaderViewCount(mHeaderAdapter.getHeaderViewCount())//设置HeaderView数量
                         .invalidate();
                 mDecoration.setmDatas(mDatas);
+
+                mDecoration.setRv(mRv);
             }
-        }, 2000);
+        }, 200);
 
     }
 
