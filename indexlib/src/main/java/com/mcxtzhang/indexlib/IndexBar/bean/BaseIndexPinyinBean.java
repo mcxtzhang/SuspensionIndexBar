@@ -15,7 +15,8 @@ public abstract class BaseIndexPinyinBean extends BaseIndexTagBean implements II
         return baseIndexPinyin;
     }
 
-    public void setBaseIndexPinyin(String baseIndexPinyin) {
+    public BaseIndexPinyinBean setBaseIndexPinyin(String baseIndexPinyin) {
         this.baseIndexPinyin = baseIndexPinyin;
+        return this;
     }
 }

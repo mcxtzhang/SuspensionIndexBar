@@ -47,6 +47,7 @@ public class CityBean extends BaseIndexPinyinBean {
         return !isTop;
     }
 
+
     @Override
     public boolean isShowSuspension() {
         return !isTop;

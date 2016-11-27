@@ -2,7 +2,6 @@ package mcxtzhang.itemdecorationdemo.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
@@ -48,7 +47,7 @@ public class MainActivity extends Activity {
 
 
         mRv = (RecyclerView) findViewById(R.id.rv);
-        mRv.setLayoutManager(mManager = new GridLayoutManager(this,2));
+        mRv.setLayoutManager(mManager = new LinearLayoutManager(this));
         //initDatas();
 
         //mDatas = new ArrayList<>();//测试为空或者null的情况 已经通过 2016 09 08
@@ -105,8 +104,6 @@ public class MainActivity extends Activity {
                         .setHeaderViewCount(mHeaderAdapter.getHeaderViewCount())//设置HeaderView数量
                         .invalidate();
                 mDecoration.setmDatas(mDatas);
-
-                mDecoration.setRv(mRv);
             }
         }, 200);
 

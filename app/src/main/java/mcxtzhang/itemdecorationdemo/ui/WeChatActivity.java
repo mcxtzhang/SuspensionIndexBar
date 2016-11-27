@@ -13,10 +13,12 @@ import com.mcxtzhang.indexlib.suspension.TitleItemDecoration;
 import java.util.ArrayList;
 import java.util.List;
 
-import mcxtzhang.itemdecorationdemo.adapter.CityAdapter;
 import mcxtzhang.itemdecorationdemo.CityBean;
 import mcxtzhang.itemdecorationdemo.R;
+import mcxtzhang.itemdecorationdemo.adapter.CityAdapter;
 import mcxtzhang.itemdecorationdemo.decoration.DividerItemDecoration;
+
+import static com.mcxtzhang.indexlib.IndexBar.widget.IndexBar.INDEX_STRING_TOP;
 
 /**
  * 介绍：高仿微信通讯录界面
@@ -85,10 +87,10 @@ public class WeChatActivity extends AppCompatActivity {
                 mDatas = new ArrayList<>();
                 //微信的头部 也是可以右侧IndexBar导航索引的，
                 // 但是它不需要被ItemDecoration设一个标题titile
-                mDatas.add(new CityBean("新的朋友").setTop(true));
-                mDatas.add(new CityBean("群聊").setTop(true));
-                mDatas.add(new CityBean("标签").setTop(true));
-                mDatas.add(new CityBean("公众号").setTop(true));
+                mDatas.add((CityBean) new CityBean("新的朋友").setTop(true).setBaseIndexTag(INDEX_STRING_TOP));
+                mDatas.add((CityBean) new CityBean("群聊").setTop(true).setBaseIndexTag(INDEX_STRING_TOP));
+                mDatas.add((CityBean) new CityBean("标签").setTop(true).setBaseIndexTag(INDEX_STRING_TOP));
+                mDatas.add((CityBean) new CityBean("公众号").setTop(true).setBaseIndexTag(INDEX_STRING_TOP));
                 for (int i = 0; i < data.length; i++) {
                     CityBean cityBean = new CityBean();
                     cityBean.setCity(data[i]);//设置城市名称
@@ -104,7 +106,7 @@ public class WeChatActivity extends AppCompatActivity {
                         .invalidate();
                 mDecoration.setmDatas(mDatas);
             }
-        }, 2000);
+        }, 500);
     }
 
     /**

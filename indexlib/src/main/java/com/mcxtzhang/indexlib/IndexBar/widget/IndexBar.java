@@ -14,14 +14,15 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
 
-import com.github.promeg.pinyinhelper.Pinyin;
 import com.mcxtzhang.indexlib.IndexBar.bean.BaseIndexPinyinBean;
+import com.mcxtzhang.indexlib.IndexBar.convert.ConvertCharHelperImpl;
+import com.mcxtzhang.indexlib.IndexBar.convert.IConvertCharHelper;
+import com.mcxtzhang.indexlib.IndexBar.sort.ISortHelper;
+import com.mcxtzhang.indexlib.IndexBar.sort.SortHelperImpl;
 import com.mcxtzhang.indexlib.R;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.List;
 
 
@@ -50,6 +51,10 @@ public class IndexBar extends View {
     private Paint mPaint;
 
     private int mPressedBackground;//手指按下时的背景色
+
+    private IConvertCharHelper mConvertCharHelper;
+    private ISortHelper mSortHelper;
+
 
     //以下边变量是外部set进来的
     private TextView mPressedShowTextView;//用于特写显示正在被触摸的index值
@@ -129,6 +134,9 @@ public class IndexBar extends View {
                 }
             }
         });
+
+        mConvertCharHelper = new ConvertCharHelperImpl();
+        mSortHelper = new SortHelperImpl();
     }
 
     @Override
@@ -305,92 +313,19 @@ public class IndexBar extends View {
         if (null == mSourceDatas || mSourceDatas.isEmpty()) {
             return;
         }
-        int size = mSourceDatas.size();
-        for (int i = 0; i < size; i++) {
-            BaseIndexPinyinBean indexPinyinBean = mSourceDatas.get(i);
-            StringBuilder pySb = new StringBuilder();
-            //add by zhangxutong 2016 11 10 如果不是top 才转拼音，否则不用转了
-            if (indexPinyinBean.isNeedToPinyin()) {
-                String target = indexPinyinBean.getTarget();//取出需要被拼音化的字段
-                //遍历target的每个char得到它的全拼音
-                for (int i1 = 0; i1 < target.length(); i1++) {
-                    //利用TinyPinyin将char转成拼音
-                    //查看源码，方法内 如果char为汉字，则返回大写拼音
-                    //如果c不是汉字，则返回String.valueOf(c)
-                    pySb.append(Pinyin.toPinyin(target.charAt(i1)).toUpperCase());
-                }
-                indexPinyinBean.setBaseIndexPinyin(pySb.toString());//设置城市名全拼音
-            } else {
-                pySb.append(INDEX_STRING_TOP);
-            }
+        mConvertCharHelper.convert(mSourceDatas);
+        mConvertCharHelper.fillInexTag(mSourceDatas);
+        mSortHelper.sortSourceDatas(mSourceDatas);
+        mSortHelper.sortIndexDatas(mSourceDatas, mIndexDatas, isNeedRealIndex);
 
-            //以下代码设置城市拼音首字母
-            String tagString = pySb.toString().substring(0, 1);
-            if (tagString.matches("[A-Z]")) {//如果是A-Z字母开头
-                indexPinyinBean.setBaseIndexTag(tagString);
-                if (isNeedRealIndex) {//如果需要真实的索引数据源
-                    if (!mIndexDatas.contains(tagString)) {//则判断是否已经将这个索引添加进去，若没有则添加
-                        mIndexDatas.add(tagString);
-                    }
-                }
-            } else if (pySb.toString().equals(INDEX_STRING_TOP)) {
-                indexPinyinBean.setBaseIndexTag(INDEX_STRING_TOP);
-                if (isNeedRealIndex) {//如果需要真实的索引数据源
-                    if (!mIndexDatas.contains(INDEX_STRING_TOP)) {//则判断是否已经将这个索引添加进去，若没有则添加
-                        mIndexDatas.add(INDEX_STRING_TOP);
-                    }
-                }
-            } else {//特殊字母这里统一用#处理
-                indexPinyinBean.setBaseIndexTag("#");
-                if (isNeedRealIndex) {//如果需要真实的索引数据源
-                    if (!mIndexDatas.contains("#")) {
-                        mIndexDatas.add("#");
-                    }
-                }
-            }
-        }
-        sortData();
+        //sortData();
     }
 
     /**
      * 对数据源排序
      */
     private void sortData() {
-        //对右侧栏进行排序 将 # 丢在最后
-        Collections.sort(mIndexDatas, new Comparator<String>() {
-            @Override
-            public int compare(String lhs, String rhs) {
-                if (lhs.equals(INDEX_STRING_TOP)) {
-                    return -1;
-                } else if (rhs.equals(INDEX_STRING_TOP)) {
-                    return 1;
-                } else if (lhs.equals("#")) {
-                    return 1;
-                } else if (rhs.equals("#")) {
-                    return -1;
-                } else {
-                    return lhs.compareTo(rhs);
-                }
-            }
-        });
 
-        //对数据源进行排序
-        Collections.sort(mSourceDatas, new Comparator<BaseIndexPinyinBean>() {
-            @Override
-            public int compare(BaseIndexPinyinBean lhs, BaseIndexPinyinBean rhs) {
-                if (lhs.getBaseIndexTag().equals(INDEX_STRING_TOP)) {
-                    return -1;
-                } else if (rhs.getBaseIndexTag().equals(INDEX_STRING_TOP)) {
-                    return 1;
-                } else if (lhs.getBaseIndexTag().equals("#")) {
-                    return 1;
-                } else if (rhs.getBaseIndexTag().equals("#")) {
-                    return -1;
-                } else {
-                    return lhs.getBaseIndexPinyin().compareTo(rhs.getBaseIndexPinyin());
-                }
-            }
-        });
     }
 
 

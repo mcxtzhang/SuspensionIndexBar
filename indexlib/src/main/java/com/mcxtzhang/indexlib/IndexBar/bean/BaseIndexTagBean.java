@@ -17,8 +17,9 @@ public abstract class BaseIndexTagBean implements ITitleCategoryInterface {
         return baseIndexTag;
     }
 
-    public void setBaseIndexTag(String baseIndexTag) {
+    public BaseIndexTagBean setBaseIndexTag(String baseIndexTag) {
         this.baseIndexTag = baseIndexTag;
+        return this;
     }
 
     @Override
