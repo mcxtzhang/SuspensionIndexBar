@@ -33,5 +33,12 @@ public class LauncherActivity extends AppCompatActivity {
                 startActivity(new Intent(v.getContext(), SwipeDelMenuActivity.class));
             }
         });
+
+        findViewById(R.id.meituanCityList).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(v.getContext(), MeituanSelectCityActivity.class));
+            }
+        });
     }
 }

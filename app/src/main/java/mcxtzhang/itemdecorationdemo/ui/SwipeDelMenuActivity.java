@@ -13,7 +13,7 @@ import com.mcxtzhang.indexlib.suspension.TitleItemDecoration;
 import java.util.ArrayList;
 import java.util.List;
 
-import mcxtzhang.itemdecorationdemo.CityBean;
+import mcxtzhang.itemdecorationdemo.model.CityBean;
 import mcxtzhang.itemdecorationdemo.R;
 import mcxtzhang.itemdecorationdemo.adapter.SwipeDelMenuAdapter;
 import mcxtzhang.itemdecorationdemo.decoration.DividerItemDecoration;

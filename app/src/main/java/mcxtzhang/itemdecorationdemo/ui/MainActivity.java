@@ -13,10 +13,10 @@ import com.mcxtzhang.indexlib.suspension.TitleItemDecoration;
 import java.util.ArrayList;
 import java.util.List;
 
-import mcxtzhang.itemdecorationdemo.CityBean;
-import mcxtzhang.itemdecorationdemo.HeaderRecyclerAndFooterWrapperAdapter;
+import mcxtzhang.itemdecorationdemo.model.CityBean;
+import mcxtzhang.itemdecorationdemo.utils.HeaderRecyclerAndFooterWrapperAdapter;
 import mcxtzhang.itemdecorationdemo.R;
-import mcxtzhang.itemdecorationdemo.ViewHolder;
+import mcxtzhang.itemdecorationdemo.utils.ViewHolder;
 import mcxtzhang.itemdecorationdemo.adapter.CityAdapter;
 
 public class MainActivity extends Activity {

@@ -8,7 +8,7 @@ import com.mcxtzhang.swipemenulib.SwipeMenuLayout;
 
 import java.util.List;
 
-import mcxtzhang.itemdecorationdemo.CityBean;
+import mcxtzhang.itemdecorationdemo.model.CityBean;
 import mcxtzhang.itemdecorationdemo.R;
 
 /**

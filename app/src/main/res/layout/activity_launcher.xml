@@ -31,4 +31,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="搭配侧滑删除"/>
+
+    <Button
+        android:id="@+id/meituanCityList"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="美团城市列表"/>
 </LinearLayout>

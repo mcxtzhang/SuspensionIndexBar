@@ -1,4 +1,4 @@
-package mcxtzhang.itemdecorationdemo;
+package mcxtzhang.itemdecorationdemo.model;
 
 import com.mcxtzhang.indexlib.IndexBar.bean.BaseIndexPinyinBean;
 

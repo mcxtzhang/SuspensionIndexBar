@@ -1,4 +1,4 @@
-package mcxtzhang.itemdecorationdemo;
+package mcxtzhang.itemdecorationdemo.utils;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
