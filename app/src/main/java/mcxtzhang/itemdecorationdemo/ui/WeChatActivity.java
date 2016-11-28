@@ -18,8 +18,6 @@ import mcxtzhang.itemdecorationdemo.R;
 import mcxtzhang.itemdecorationdemo.adapter.CityAdapter;
 import mcxtzhang.itemdecorationdemo.decoration.DividerItemDecoration;
 
-import static com.mcxtzhang.indexlib.IndexBar.widget.IndexBar.INDEX_STRING_TOP;
-
 /**
  * 介绍：高仿微信通讯录界面
  * 头部不是HeaderView 因为头部也需要快速导航，"↑"
@@ -31,6 +29,7 @@ import static com.mcxtzhang.indexlib.IndexBar.widget.IndexBar.INDEX_STRING_TOP;
 
 public class WeChatActivity extends AppCompatActivity {
     private static final String TAG = "zxt";
+    private static final String INDEX_STRING_TOP = "↑";
     private RecyclerView mRv;
     private CityAdapter mAdapter;
     private LinearLayoutManager mManager;
@@ -69,6 +68,11 @@ public class WeChatActivity extends AppCompatActivity {
         mTvSideBarHint = (TextView) findViewById(R.id.tvSideBarHint);//HintTextView
         mIndexBar = (IndexBar) findViewById(R.id.indexBar);//IndexBar
 
+        //indexbar初始化
+        mIndexBar.setmPressedShowTextView(mTvSideBarHint)//设置HintTextView
+                .setNeedRealIndex(true)//设置需要真实的索引
+                .setmLayoutManager(mManager);//设置RecyclerView的LayoutManager
+
         //模拟线上加载数据
         initDatas(getResources().getStringArray(R.array.provinces));
     }
@@ -99,10 +103,7 @@ public class WeChatActivity extends AppCompatActivity {
                 mAdapter.setDatas(mDatas);
                 mAdapter.notifyDataSetChanged();
 
-                mIndexBar.setmPressedShowTextView(mTvSideBarHint)//设置HintTextView
-                        .setNeedRealIndex(true)//设置需要真实的索引
-                        .setmLayoutManager(mManager)//设置RecyclerView的LayoutManager
-                        .setmSourceDatas(mDatas)//设置数据
+                mIndexBar.setmSourceDatas(mDatas)//设置数据
                         .invalidate();
                 mDecoration.setmDatas(mDatas);
             }
@@ -115,7 +116,7 @@ public class WeChatActivity extends AppCompatActivity {
      * @param view
      */
     public void updateDatas(View view) {
-        for (int i = 0; i < 99; i++) {
+        for (int i = 0; i < 5; i++) {
             mDatas.add(new CityBean("东京"));
             mDatas.add(new CityBean("大阪"));
         }

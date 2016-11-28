@@ -16,6 +16,6 @@ public interface ISortHelper {
     //对源数据进行排序（RecyclerView）
     void sortSourceDatas(List<? extends BaseIndexPinyinBean> datas);
 
-    //对IndexBar的数据源进行排序(右侧栏)
-    void sortIndexDatas(List<? extends BaseIndexPinyinBean> sourceDatas,List<String> datas, boolean isNeedRealIndex);
+    //对IndexBar的数据源进行排序(右侧栏),在 sortSourceDatas 方法后调用
+    void getSortedIndexDatas(List<? extends BaseIndexPinyinBean> sourceDatas, List<String> datas);
 }

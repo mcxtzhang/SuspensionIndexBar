@@ -36,22 +36,28 @@ import java.util.List;
 
 public class IndexBar extends View {
     private static final String TAG = "zxt/IndexBar";
-    public static String INDEX_STRING_TOP = "↑";//模仿微信的Top数据
-    //public static String INDEX_TOP_FLAG = "0";//0代表数据源的头
 
+    //#在最后面（默认的数据源）
     public static String[] INDEX_STRING = {"A", "B", "C", "D", "E", "F", "G", "H", "I",
             "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
-            "W", "X", "Y", "Z", "#"};//#在最后面（默认的数据源）
-    private List<String> mIndexDatas;//索引数据源
-    private boolean isNeedRealIndex;//是否需要根据实际的数据来生成索引数据源（例如 只有 A B C 三种tag，那么索引栏就 A B C 三项）
+            "W", "X", "Y", "Z", "#"};
+    //索引数据源
+    private List<String> mIndexDatas;
+    //是否需要根据实际的数据来生成索引数据源（例如 只有 A B C 三种tag，那么索引栏就 A B C 三项）
+    private boolean isNeedRealIndex;
 
-    private int mWidth, mHeight;//View的宽高
-    private int mGapHeight;//每个index区域的高度
+    //View的宽高
+    private int mWidth, mHeight;
+    //每个index区域的高度
+    private int mGapHeight;
 
     private Paint mPaint;
 
-    private int mPressedBackground;//手指按下时的背景色
+    //手指按下时的背景色
+    private int mPressedBackground;
 
+    //以下是帮助类
+    //汉语->拼音，拼音->tag
     private IConvertCharHelper mConvertCharHelper;
     private ISortHelper mSortHelper;
 
@@ -101,9 +107,9 @@ public class IndexBar extends View {
         }
         typedArray.recycle();
 
-        if (!isNeedRealIndex) {//不需要真实的索引数据源
-            mIndexDatas = Arrays.asList(INDEX_STRING);
-        }
+        initIndexDatas();
+
+
         mPaint = new Paint();
         mPaint.setAntiAlias(true);
         mPaint.setTextSize(textSize);
@@ -235,12 +241,12 @@ public class IndexBar extends View {
     @Override
     protected void onSizeChanged(int w, int h, int oldw, int oldh) {
         super.onSizeChanged(w, h, oldw, oldh);
+        mWidth = w;
+        mHeight = h;
         //add by zhangxutong 2016 09 08 :解决源数据为空 或者size为0的情况,
         if (null == mIndexDatas || mIndexDatas.isEmpty()) {
             return;
         }
-        mWidth = w;
-        mHeight = h;
         computeGapHeight();
     }
 
@@ -287,18 +293,21 @@ public class IndexBar extends View {
      */
     public IndexBar setNeedRealIndex(boolean needRealIndex) {
         isNeedRealIndex = needRealIndex;
-        if (isNeedRealIndex) {
-            if (mIndexDatas != null) {
-                mIndexDatas = new ArrayList<>();
-            }
-        }
+        initIndexDatas();
         return this;
+    }
+
+    private void initIndexDatas() {
+        if (isNeedRealIndex) {
+            mIndexDatas = new ArrayList<>();
+        } else {
+            mIndexDatas = Arrays.asList(INDEX_STRING);
+        }
     }
 
     public IndexBar setmSourceDatas(List<? extends BaseIndexPinyinBean> mSourceDatas) {
         this.mSourceDatas = mSourceDatas;
         initSourceDatas();//对数据源进行初始化
-        computeGapHeight();
         return this;
     }
 
@@ -313,11 +322,16 @@ public class IndexBar extends View {
         if (null == mSourceDatas || mSourceDatas.isEmpty()) {
             return;
         }
+        //汉语->拼音
         mConvertCharHelper.convert(mSourceDatas);
+        //拼音->tag
         mConvertCharHelper.fillInexTag(mSourceDatas);
+        //排序sourceDatas
         mSortHelper.sortSourceDatas(mSourceDatas);
-        mSortHelper.sortIndexDatas(mSourceDatas, mIndexDatas, isNeedRealIndex);
-
+        if (isNeedRealIndex) {
+            mSortHelper.getSortedIndexDatas(mSourceDatas, mIndexDatas);
+            computeGapHeight();
+        }
         //sortData();
     }
 
