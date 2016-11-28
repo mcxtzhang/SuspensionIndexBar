@@ -1,6 +1,7 @@
-# ItemDecorationIndexBar
+# SuspensionIndexBar
 相关博文：
 http://blog.csdn.net/zxt0601/article/details/52355199
+
 http://blog.csdn.net/zxt0601/article/details/52420706
 
 喜欢随手点个star 多谢 
@@ -23,6 +24,17 @@ http://gold.xitu.io/user/56de210b816dfa0052e66495
 http://www.jianshu.com/users/8e91ff99b072/timeline
 
 # 效果一览：
+配合我另一个库组装的效果(ItemDecorationIndexBar + SwipeMenuLayout)：
+
+(SwipeDelMenuLayout : https://github.com/mcxtzhang/SwipeDelMenuLayout)
+
+SwipeDelMenuActivity:
+![image](https://github.com/mcxtzhang/ItemDecorationIndexBar/blob/master/gif/ItemDecorationIndexBar_SwipeDel.gif)
+
+高仿美团选择城市界面（MeituanSelectCityActivity）:
+
+![image](https://github.com/mcxtzhang/ItemDecorationIndexBar/blob/master/gif/meituan.gif)
+
 高仿微信通讯录界面（WeChatActivity）:
 
 ![image](https://github.com/mcxtzhang/ItemDecorationIndexBar/blob/master/gif/weixin.gif)
@@ -31,10 +43,7 @@ http://www.jianshu.com/users/8e91ff99b072/timeline
 
 ![image](https://github.com/mcxtzhang/ItemDecorationIndexBar/blob/master/gif/citylist)
 
-配合我另一个库组装的效果(ItemDecorationIndexBar + SwipeMenuLayout)：
-(SwipeDelMenuLayout : https://github.com/mcxtzhang/SwipeDelMenuLayout)
 
-![image](https://github.com/mcxtzhang/ItemDecorationIndexBar/blob/master/gif/ItemDecorationIndexBar_SwipeDel.gif)
 
 # 更新记录：
 2016 11 10 :
