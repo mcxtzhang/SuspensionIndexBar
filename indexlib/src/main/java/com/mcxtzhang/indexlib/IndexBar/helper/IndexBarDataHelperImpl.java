@@ -83,6 +83,11 @@ public class IndexBarDataHelperImpl implements IIndexBarDataHelper {
 
     @Override
     public IIndexBarDataHelper sortSourceDatas(List<? extends BaseIndexPinyinBean> datas) {
+        if (null == datas || datas.isEmpty()) {
+            return this;
+        }
+        convert(datas);
+        fillInexTag(datas);
         //对数据源进行排序
         Collections.sort(datas, new Comparator<BaseIndexPinyinBean>() {
             @Override
@@ -105,6 +110,9 @@ public class IndexBarDataHelperImpl implements IIndexBarDataHelper {
 
     @Override
     public IIndexBarDataHelper getSortedIndexDatas(List<? extends BaseIndexPinyinBean> sourceDatas, List<String> indexDatas) {
+        if (null == sourceDatas || sourceDatas.isEmpty()) {
+            return this;
+        }
         //按数据源来 此时sourceDatas 已经有序
         int size = sourceDatas.size();
         String baseIndexTag;

@@ -115,11 +115,13 @@ public class SwipeDelMenuActivity extends AppCompatActivity {
      * @param view
      */
     public void updateDatas(View view) {
-        for (int i = 0; i < 99; i++) {
+        for (int i = 0; i < 5; i++) {
             mDatas.add(new CityBean("东京"));
             mDatas.add(new CityBean("大阪"));
         }
+        mIndexBar.setmSourceDatas(mDatas)
+                .invalidate();
         mAdapter.notifyDataSetChanged();
-        mIndexBar.setmSourceDatas(mDatas);
+
     }
 }

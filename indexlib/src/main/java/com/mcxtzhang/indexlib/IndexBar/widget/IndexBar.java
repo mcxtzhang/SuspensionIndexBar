@@ -355,14 +355,14 @@ public class IndexBar extends View {
         if (null == mSourceDatas || mSourceDatas.isEmpty()) {
             return;
         }
-        //汉语->拼音
-        mDataHelper.convert(mSourceDatas);
-        //拼音->tag
-        mDataHelper.fillInexTag(mSourceDatas);
-
         if (!isSourceDatasAlreadySorted) {
             //排序sourceDatas
             mDataHelper.sortSourceDatas(mSourceDatas);
+        } else {
+            //汉语->拼音
+            mDataHelper.convert(mSourceDatas);
+            //拼音->tag
+            mDataHelper.fillInexTag(mSourceDatas);
         }
         if (isNeedRealIndex) {
             mDataHelper.getSortedIndexDatas(mSourceDatas, mIndexDatas);

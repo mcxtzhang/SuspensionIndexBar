@@ -1,7 +1,6 @@
 package mcxtzhang.itemdecorationdemo.ui;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -71,7 +70,6 @@ public class MeituanSelectCityActivity extends AppCompatActivity {
         mContext = this;
 
         mRv = (RecyclerView) findViewById(R.id.rv);
-        mRv.setBackgroundColor(Color.WHITE);
         mRv.setLayoutManager(mManager = new LinearLayoutManager(this));
 
         mSourceDatas = new ArrayList<>();
@@ -126,7 +124,7 @@ public class MeituanSelectCityActivity extends AppCompatActivity {
                         .setTitleFontSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, getResources().getDisplayMetrics()))
                         .setColorTitleFont(mContext.getResources().getColor(android.R.color.black))
         /*.setHeaderViewCount(mHeaderAdapter.getHeaderViewCount())*/);
-        mRv.addItemDecoration(new DividerItemDecoration(mContext,DividerItemDecoration.VERTICAL_LIST));
+        mRv.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
 
         //使用indexBar
         mTvSideBarHint = (TextView) findViewById(R.id.tvSideBarHint);//HintTextView
@@ -157,8 +155,6 @@ public class MeituanSelectCityActivity extends AppCompatActivity {
                     mBodyDatas.add(cityBean);
                 }
                 //先排序
-                mIndexBar.getDataHelper().convert(mBodyDatas);
-                mIndexBar.getDataHelper().fillInexTag(mBodyDatas);
                 mIndexBar.getDataHelper().sortSourceDatas(mBodyDatas);
 
                 mAdapter.setDatas(mBodyDatas);
@@ -210,7 +206,13 @@ public class MeituanSelectCityActivity extends AppCompatActivity {
             mBodyDatas.add(new MeiTuanBean("东京"));
             mBodyDatas.add(new MeiTuanBean("大阪"));
         }
-        mAdapter.notifyDataSetChanged();
-        mIndexBar.setmSourceDatas(mSourceDatas);
+        //先排序
+        mIndexBar.getDataHelper().sortSourceDatas(mBodyDatas);
+        mSourceDatas.clear();
+        mSourceDatas.addAll(mHeaderDatas);
+        mSourceDatas.addAll(mBodyDatas);
+
+        mHeaderAdapter.notifyDataSetChanged();
+        mIndexBar.invalidate();
     }
 }

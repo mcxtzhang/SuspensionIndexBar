@@ -55,14 +55,11 @@ public class WeChatActivity extends AppCompatActivity {
         mRv = (RecyclerView) findViewById(R.id.rv);
         mRv.setLayoutManager(mManager = new LinearLayoutManager(this));
 
-
         mAdapter = new CityAdapter(this, mDatas);
         mRv.setAdapter(mAdapter);
         mRv.addItemDecoration(mDecoration = new SuspensionDecoration(this, mDatas));
         //如果add两个，那么按照先后顺序，依次渲染。
-        //mRv.addItemDecoration(new TitleItemDecoration2(this,mDatas));
         mRv.addItemDecoration(new DividerItemDecoration(WeChatActivity.this, DividerItemDecoration.VERTICAL_LIST));
-
 
         //使用indexBar
         mTvSideBarHint = (TextView) findViewById(R.id.tvSideBarHint);//HintTextView
@@ -120,7 +117,9 @@ public class WeChatActivity extends AppCompatActivity {
             mDatas.add(new CityBean("东京"));
             mDatas.add(new CityBean("大阪"));
         }
+
+        mIndexBar.setmSourceDatas(mDatas)
+                .invalidate();
         mAdapter.notifyDataSetChanged();
-        mIndexBar.setmSourceDatas(mDatas);
     }
 }
