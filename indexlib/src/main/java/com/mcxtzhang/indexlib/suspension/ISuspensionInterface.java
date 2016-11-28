@@ -8,7 +8,7 @@ package com.mcxtzhang.indexlib.suspension;
  * 时间： 2016/11/7.
  */
 
-public interface ISuspensionTagInterface {
+public interface ISuspensionInterface {
     //是否需要显示悬停title
     boolean isShowSuspension();
 

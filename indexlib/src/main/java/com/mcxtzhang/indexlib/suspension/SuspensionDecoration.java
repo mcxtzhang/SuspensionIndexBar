@@ -22,8 +22,8 @@ import java.util.List;
  * 时间： 2016/11/7.
  */
 
-public class SuspensionTagDecoration extends RecyclerView.ItemDecoration {
-    private List<? extends ISuspensionTagInterface> mDatas;
+public class SuspensionDecoration extends RecyclerView.ItemDecoration {
+    private List<? extends ISuspensionInterface> mDatas;
     private Paint mPaint;
     private Rect mBounds;//用于存放测量文字Rect
 
@@ -37,7 +37,7 @@ public class SuspensionTagDecoration extends RecyclerView.ItemDecoration {
     private int mHeaderViewCount = 0;
 
 
-    public SuspensionTagDecoration(Context context, List<? extends ISuspensionTagInterface> datas) {
+    public SuspensionDecoration(Context context, List<? extends ISuspensionInterface> datas) {
         super();
         mDatas = datas;
         mPaint = new Paint();
@@ -50,28 +50,28 @@ public class SuspensionTagDecoration extends RecyclerView.ItemDecoration {
     }
 
 
-    public SuspensionTagDecoration setmTitleHeight(int mTitleHeight) {
+    public SuspensionDecoration setmTitleHeight(int mTitleHeight) {
         this.mTitleHeight = mTitleHeight;
         return this;
     }
 
 
-    public SuspensionTagDecoration setColorTitleBg(int colorTitleBg) {
+    public SuspensionDecoration setColorTitleBg(int colorTitleBg) {
         COLOR_TITLE_BG = colorTitleBg;
         return this;
     }
 
-    public SuspensionTagDecoration setColorTitleFont(int colorTitleFont) {
+    public SuspensionDecoration setColorTitleFont(int colorTitleFont) {
         COLOR_TITLE_FONT = colorTitleFont;
         return this;
     }
 
-    public SuspensionTagDecoration setTitleFontSize(int mTitleFontSize) {
+    public SuspensionDecoration setTitleFontSize(int mTitleFontSize) {
         mPaint.setTextSize(mTitleFontSize);
         return this;
     }
 
-    public SuspensionTagDecoration setmDatas(List<? extends ISuspensionTagInterface> mDatas) {
+    public SuspensionDecoration setmDatas(List<? extends ISuspensionInterface> mDatas) {
         this.mDatas = mDatas;
         return this;
     }
@@ -80,7 +80,7 @@ public class SuspensionTagDecoration extends RecyclerView.ItemDecoration {
         return mHeaderViewCount;
     }
 
-    public SuspensionTagDecoration setHeaderViewCount(int headerViewCount) {
+    public SuspensionDecoration setHeaderViewCount(int headerViewCount) {
         mHeaderViewCount = headerViewCount;
         return this;
     }
@@ -252,7 +252,7 @@ public class SuspensionTagDecoration extends RecyclerView.ItemDecoration {
         }
         //我记得Rv的item position在重置时可能为-1.保险点判断一下吧
         if (position > -1) {
-            ISuspensionTagInterface titleCategoryInterface = mDatas.get(position);
+            ISuspensionInterface titleCategoryInterface = mDatas.get(position);
             //等于0肯定要有title的,
             // 2016 11 07 add 考虑到headerView 等于0 也不应该有title
             // 2016 11 10 add 通过接口里的isShowSuspension() 方法，先过滤掉不想显示悬停的item

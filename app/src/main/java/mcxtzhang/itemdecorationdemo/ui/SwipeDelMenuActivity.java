@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.mcxtzhang.indexlib.IndexBar.widget.IndexBar;
-import com.mcxtzhang.indexlib.suspension.SuspensionTagDecoration;
+import com.mcxtzhang.indexlib.suspension.SuspensionDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +36,7 @@ public class SwipeDelMenuActivity extends AppCompatActivity {
     private LinearLayoutManager mManager;
     private List<CityBean> mDatas = new ArrayList<>();
 
-    private SuspensionTagDecoration mDecoration;
+    private SuspensionDecoration mDecoration;
 
     /**
      * 右侧边栏导航区域
@@ -59,7 +59,7 @@ public class SwipeDelMenuActivity extends AppCompatActivity {
 
         mAdapter = new SwipeDelMenuAdapter(this, mDatas);
         mRv.setAdapter(mAdapter);
-        mRv.addItemDecoration(mDecoration = new SuspensionTagDecoration(this, mDatas));
+        mRv.addItemDecoration(mDecoration = new SuspensionDecoration(this, mDatas));
         //如果add两个，那么按照先后顺序，依次渲染。
         //mRv.addItemDecoration(new TitleItemDecoration2(this,mDatas));
         mRv.addItemDecoration(new DividerItemDecoration(SwipeDelMenuActivity.this, DividerItemDecoration.VERTICAL_LIST));

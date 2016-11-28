@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.mcxtzhang.indexlib.IndexBar.widget.IndexBar;
-import com.mcxtzhang.indexlib.suspension.SuspensionTagDecoration;
+import com.mcxtzhang.indexlib.suspension.SuspensionDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,7 +27,7 @@ public class MainActivity extends Activity {
     private LinearLayoutManager mManager;
     private List<CityBean> mDatas;
 
-    private SuspensionTagDecoration mDecoration;
+    private SuspensionDecoration mDecoration;
 
     /**
      * 右侧边栏导航区域
@@ -63,7 +63,7 @@ public class MainActivity extends Activity {
         mHeaderAdapter.setHeaderView(R.layout.item_city, "测试头部");
 
         mRv.setAdapter(mHeaderAdapter);
-        mRv.addItemDecoration(mDecoration = new SuspensionTagDecoration(this, mDatas).setHeaderViewCount(mHeaderAdapter.getHeaderViewCount()));
+        mRv.addItemDecoration(mDecoration = new SuspensionDecoration(this, mDatas).setHeaderViewCount(mHeaderAdapter.getHeaderViewCount()));
 
         //如果add两个，那么按照先后顺序，依次渲染。
         //mRv.addItemDecoration(new TitleItemDecoration2(this,mDatas));

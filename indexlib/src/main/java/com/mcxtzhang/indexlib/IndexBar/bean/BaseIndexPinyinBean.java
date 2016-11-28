@@ -8,7 +8,7 @@ package com.mcxtzhang.indexlib.IndexBar.bean;
  * 时间： 16/09/04.
  */
 
-public abstract class BaseIndexPinyinBean extends BaseIndexTagBean implements IIndexTargetInterface {
+public abstract class BaseIndexPinyinBean extends BaseIndexBean implements IIndexTargetInterface {
     private String baseIndexPinyin;//城市的拼音
 
     public String getBaseIndexPinyin() {
