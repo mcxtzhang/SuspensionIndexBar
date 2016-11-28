@@ -15,10 +15,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.mcxtzhang.indexlib.IndexBar.bean.BaseIndexPinyinBean;
-import com.mcxtzhang.indexlib.IndexBar.convert.ConvertCharHelperImpl;
-import com.mcxtzhang.indexlib.IndexBar.convert.IConvertCharHelper;
-import com.mcxtzhang.indexlib.IndexBar.sort.ISortHelper;
-import com.mcxtzhang.indexlib.IndexBar.sort.SortHelperImpl;
+import com.mcxtzhang.indexlib.IndexBar.helper.IIndexBarDataHelper;
+import com.mcxtzhang.indexlib.IndexBar.helper.IndexBarDataHelperImpl;
 import com.mcxtzhang.indexlib.R;
 
 import java.util.ArrayList;
@@ -59,9 +57,7 @@ public class IndexBar extends View {
 
     //以下是帮助类
     //汉语->拼音，拼音->tag
-    private IConvertCharHelper mConvertCharHelper;
-    private ISortHelper mSortHelper;
-
+    private IIndexBarDataHelper mDataHelper;
 
     //以下边变量是外部set进来的
     private TextView mPressedShowTextView;//用于特写显示正在被触摸的index值
@@ -113,37 +109,20 @@ public class IndexBar extends View {
         return this;
     }
 
-    public IConvertCharHelper getConvertCharHelper() {
-        return mConvertCharHelper;
+    public IIndexBarDataHelper getDataHelper() {
+        return mDataHelper;
     }
 
     /**
-     * 转化帮助类
+     * 设置数据源帮助类
      *
-     * @param convertCharHelper
+     * @param dataHelper
      * @return
      */
-    public IndexBar setConvertCharHelper(IConvertCharHelper convertCharHelper) {
-        mConvertCharHelper = convertCharHelper;
+    public IndexBar setDataHelper(IIndexBarDataHelper dataHelper) {
+        mDataHelper = dataHelper;
         return this;
     }
-
-    public ISortHelper getSortHelper() {
-        return mSortHelper;
-    }
-
-    /**
-
-     * 设置排序帮助类
-     *
-     * @param sortHelper
-     * @return
-     */
-    public IndexBar setSortHelper(ISortHelper sortHelper) {
-        mSortHelper = sortHelper;
-        return this;
-    }
-
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
         int textSize = (int) TypedValue.applyDimension(
@@ -196,8 +175,7 @@ public class IndexBar extends View {
             }
         });
 
-        mConvertCharHelper = new ConvertCharHelperImpl();
-        mSortHelper = new SortHelperImpl();
+        mDataHelper = new IndexBarDataHelperImpl();
     }
 
     @Override
@@ -378,16 +356,16 @@ public class IndexBar extends View {
             return;
         }
         //汉语->拼音
-        mConvertCharHelper.convert(mSourceDatas);
+        mDataHelper.convert(mSourceDatas);
         //拼音->tag
-        mConvertCharHelper.fillInexTag(mSourceDatas);
+        mDataHelper.fillInexTag(mSourceDatas);
 
         if (!isSourceDatasAlreadySorted) {
             //排序sourceDatas
-            mSortHelper.sortSourceDatas(mSourceDatas);
+            mDataHelper.sortSourceDatas(mSourceDatas);
         }
         if (isNeedRealIndex) {
-            mSortHelper.getSortedIndexDatas(mSourceDatas, mIndexDatas);
+            mDataHelper.getSortedIndexDatas(mSourceDatas, mIndexDatas);
             computeGapHeight();
         }
         //sortData();

@@ -51,11 +51,6 @@ public class MeituanHeaderBean extends BaseIndexPinyinBean {
     }
 
     @Override
-    public boolean isShowSuspension() {
-        return true;
-    }
-
-    @Override
     public String getSuspensionTag() {
         return suspensionTag;
     }

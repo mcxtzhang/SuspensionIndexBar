@@ -157,9 +157,9 @@ public class MeituanSelectCityActivity extends AppCompatActivity {
                     mBodyDatas.add(cityBean);
                 }
                 //先排序
-                mIndexBar.getConvertCharHelper().convert(mBodyDatas);
-                mIndexBar.getConvertCharHelper().fillInexTag(mBodyDatas);
-                mIndexBar.getSortHelper().sortSourceDatas(mBodyDatas);
+                mIndexBar.getDataHelper().convert(mBodyDatas);
+                mIndexBar.getDataHelper().fillInexTag(mBodyDatas);
+                mIndexBar.getDataHelper().sortSourceDatas(mBodyDatas);
 
                 mAdapter.setDatas(mBodyDatas);
                 mHeaderAdapter.notifyDataSetChanged();

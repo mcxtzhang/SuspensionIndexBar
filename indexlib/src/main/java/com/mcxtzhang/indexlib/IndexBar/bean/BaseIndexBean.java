@@ -27,4 +27,8 @@ public abstract class BaseIndexBean implements ISuspensionInterface {
         return baseIndexTag;
     }
 
+    @Override
+    public boolean isShowSuspension() {
+        return true;
+    }
 }

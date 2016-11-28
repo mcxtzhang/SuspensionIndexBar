@@ -33,15 +33,4 @@ public class MeiTuanBean extends BaseIndexPinyinBean {
     public String getTarget() {
         return city;
     }
-
-    @Override
-    public boolean isNeedToPinyin() {
-        return true;
-    }
-
-    @Override
-    public boolean isShowSuspension() {
-        return true;
-    }
-
 }

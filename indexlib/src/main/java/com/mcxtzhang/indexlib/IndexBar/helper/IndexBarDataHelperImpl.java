@@ -1,21 +1,25 @@
-package com.mcxtzhang.indexlib.IndexBar.convert;
+package com.mcxtzhang.indexlib.IndexBar.helper;
 
 import com.github.promeg.pinyinhelper.Pinyin;
 import com.mcxtzhang.indexlib.IndexBar.bean.BaseIndexPinyinBean;
 
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
-
 /**
- * 介绍：拼音转化实现类
+ * 介绍：IndexBar 的 数据相关帮助类 实现
+ * * 1 将汉语转成拼音(利用tinyPinyin)
+ * 2 填充indexTag (取拼音首字母)
+ * 3 排序源数据源
+ * 4 根据排序后的源数据源->indexBar的数据源
  * 作者：zhangxutong
  * 邮箱：mcxtzhang@163.com
- * CSDN：http://blog.csdn.net/zxt0601
- * 时间： 16/11/27.
+ * 主页：http://blog.csdn.net/zxt0601
+ * 时间： 2016/11/28.
  */
 
-public class ConvertCharHelperImpl implements IConvertCharHelper {
-
+public class IndexBarDataHelperImpl implements IIndexBarDataHelper {
     /**
      * 如果需要，
      * 字符->拼音，
@@ -23,9 +27,9 @@ public class ConvertCharHelperImpl implements IConvertCharHelper {
      * @param datas
      */
     @Override
-    public void convert(List<? extends BaseIndexPinyinBean> datas) {
+    public IIndexBarDataHelper convert(List<? extends BaseIndexPinyinBean> datas) {
         if (null == datas || datas.isEmpty()) {
-            return;
+            return this;
         }
         int size = datas.size();
         for (int i = 0; i < size; i++) {
@@ -46,19 +50,20 @@ public class ConvertCharHelperImpl implements IConvertCharHelper {
                 //pySb.append(indexPinyinBean.getBaseIndexPinyin());
             }
         }
-
+        return this;
     }
 
     /**
      * 如果需要取出，则
      * 取出首字母->tag,或者特殊字母 "#".
      * 否则，用户已经实现设置好
+     *
      * @param datas
      */
     @Override
-    public void fillInexTag(List<? extends BaseIndexPinyinBean> datas) {
+    public IIndexBarDataHelper fillInexTag(List<? extends BaseIndexPinyinBean> datas) {
         if (null == datas || datas.isEmpty()) {
-            return;
+            return this;
         }
         int size = datas.size();
         for (int i = 0; i < size; i++) {
@@ -73,5 +78,42 @@ public class ConvertCharHelperImpl implements IConvertCharHelper {
                 }
             }
         }
+        return this;
+    }
+
+    @Override
+    public IIndexBarDataHelper sortSourceDatas(List<? extends BaseIndexPinyinBean> datas) {
+        //对数据源进行排序
+        Collections.sort(datas, new Comparator<BaseIndexPinyinBean>() {
+            @Override
+            public int compare(BaseIndexPinyinBean lhs, BaseIndexPinyinBean rhs) {
+                if (!lhs.isNeedToPinyin()) {
+                    return 0;
+                } else if (!rhs.isNeedToPinyin()) {
+                    return 0;
+                } else if (lhs.getBaseIndexTag().equals("#")) {
+                    return 1;
+                } else if (rhs.getBaseIndexTag().equals("#")) {
+                    return -1;
+                } else {
+                    return lhs.getBaseIndexPinyin().compareTo(rhs.getBaseIndexPinyin());
+                }
+            }
+        });
+        return this;
+    }
+
+    @Override
+    public IIndexBarDataHelper getSortedIndexDatas(List<? extends BaseIndexPinyinBean> sourceDatas, List<String> indexDatas) {
+        //按数据源来 此时sourceDatas 已经有序
+        int size = sourceDatas.size();
+        String baseIndexTag;
+        for (int i = 0; i < size; i++) {
+            baseIndexTag = sourceDatas.get(i).getBaseIndexTag();
+            if (!indexDatas.contains(baseIndexTag)) {//则判断是否已经将这个索引添加进去，若没有则添加
+                indexDatas.add(baseIndexTag);
+            }
+        }
+        return this;
     }
 }
