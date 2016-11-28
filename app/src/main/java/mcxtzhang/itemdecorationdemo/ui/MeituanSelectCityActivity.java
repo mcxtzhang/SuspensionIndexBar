@@ -23,6 +23,7 @@ import mcxtzhang.itemdecorationdemo.adapter.MeituanAdapter;
 import mcxtzhang.itemdecorationdemo.decoration.DividerItemDecoration;
 import mcxtzhang.itemdecorationdemo.model.MeiTuanBean;
 import mcxtzhang.itemdecorationdemo.model.MeituanHeaderBean;
+import mcxtzhang.itemdecorationdemo.model.MeituanTopHeaderBean;
 import mcxtzhang.itemdecorationdemo.utils.CommonAdapter;
 import mcxtzhang.itemdecorationdemo.utils.HeaderRecyclerAndFooterWrapperAdapter;
 import mcxtzhang.itemdecorationdemo.utils.ViewHolder;
@@ -66,7 +67,7 @@ public class MeituanSelectCityActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_meituan);
         mContext = this;
 
         mRv = (RecyclerView) findViewById(R.id.rv);
@@ -107,23 +108,28 @@ public class MeituanSelectCityActivity extends AppCompatActivity {
                                 });
                         recyclerView.setLayoutManager(new GridLayoutManager(mContext, 3));
                         break;
+                    case R.layout.meituan_item_header_top:
+                        MeituanTopHeaderBean meituanTopHeaderBean = (MeituanTopHeaderBean) o;
+                        holder.setText(R.id.tvCurrent, meituanTopHeaderBean.getTxt());
+                        break;
                     default:
                         break;
                 }
             }
         };
-        mHeaderAdapter.setHeaderView(0, R.layout.meituan_item_header, mHeaderDatas.get(0));
-        mHeaderAdapter.setHeaderView(1, R.layout.meituan_item_header, mHeaderDatas.get(1));
-        mHeaderAdapter.setHeaderView(2, R.layout.meituan_item_header, mHeaderDatas.get(2));
+        mHeaderAdapter.setHeaderView(0, R.layout.meituan_item_header_top, new MeituanTopHeaderBean("当前：上海徐汇"));
+        mHeaderAdapter.setHeaderView(1, R.layout.meituan_item_header, mHeaderDatas.get(0));
+        mHeaderAdapter.setHeaderView(2, R.layout.meituan_item_header, mHeaderDatas.get(1));
+        mHeaderAdapter.setHeaderView(3, R.layout.meituan_item_header, mHeaderDatas.get(2));
 
 
         mRv.setAdapter(mHeaderAdapter);
         mRv.addItemDecoration(mDecoration = new SuspensionDecoration(this, mSourceDatas)
-                        .setmTitleHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 35, getResources().getDisplayMetrics()))
-                        .setColorTitleBg(mContext.getResources().getColor(android.R.color.white))
-                        .setTitleFontSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, getResources().getDisplayMetrics()))
-                        .setColorTitleFont(mContext.getResources().getColor(android.R.color.black))
-        /*.setHeaderViewCount(mHeaderAdapter.getHeaderViewCount())*/);
+                .setmTitleHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 35, getResources().getDisplayMetrics()))
+                .setColorTitleBg(0xffefefef)
+                .setTitleFontSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, getResources().getDisplayMetrics()))
+                .setColorTitleFont(mContext.getResources().getColor(android.R.color.black))
+                .setHeaderViewCount(mHeaderAdapter.getHeaderViewCount() - mHeaderDatas.size()));
         mRv.addItemDecoration(new DividerItemDecoration(mContext, DividerItemDecoration.VERTICAL_LIST));
 
         //使用indexBar
@@ -132,7 +138,8 @@ public class MeituanSelectCityActivity extends AppCompatActivity {
 
         mIndexBar.setmPressedShowTextView(mTvSideBarHint)//设置HintTextView
                 .setNeedRealIndex(true)//设置需要真实的索引
-                .setmLayoutManager(mManager);//设置RecyclerView的LayoutManager
+                .setmLayoutManager(mManager)//设置RecyclerView的LayoutManager
+                .setHeaderViewCount(mHeaderAdapter.getHeaderViewCount() - mHeaderDatas.size());
 
         initDatas(getResources().getStringArray(R.array.provinces));
     }
@@ -189,7 +196,7 @@ public class MeituanSelectCityActivity extends AppCompatActivity {
                 hotCitys.add("广州");
                 header3.setCityList(hotCitys);
 
-                mHeaderAdapter.notifyItemRangeChanged(0, 3);
+                mHeaderAdapter.notifyItemRangeChanged(1, 3);
 
             }
         }, 2000);

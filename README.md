@@ -24,7 +24,7 @@ http://gold.xitu.io/user/56de210b816dfa0052e66495
 http://www.jianshu.com/users/8e91ff99b072/timeline
 
 # 效果一览：
-配合我另一个库组装的效果(ItemDecorationIndexBar + SwipeMenuLayout)：
+配合我另一个库组装的效果(SuspensionIndexBar + SwipeMenuLayout)：
 
 (SwipeDelMenuLayout : https://github.com/mcxtzhang/SwipeDelMenuLayout)
 
