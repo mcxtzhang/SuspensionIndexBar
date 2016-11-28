@@ -35,10 +35,6 @@ public class MeituanHeaderBean extends BaseIndexPinyinBean {
         return this;
     }
 
-    public String getSuspensionTag() {
-        return suspensionTag;
-    }
-
     public MeituanHeaderBean setSuspensionTag(String suspensionTag) {
         this.suspensionTag = suspensionTag;
         return this;
@@ -60,7 +56,7 @@ public class MeituanHeaderBean extends BaseIndexPinyinBean {
     }
 
     @Override
-    public String getTitleCategory() {
+    public String getSuspensionTag() {
         return suspensionTag;
     }
 

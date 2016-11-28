@@ -8,8 +8,11 @@ package com.mcxtzhang.indexlib.suspension;
  * 时间： 2016/11/7.
  */
 
-public interface ITitleCategoryInterface {
-    String getTitleCategory();//悬停的title
+public interface ISuspensionTagInterface {
+    //是否需要显示悬停title
+    boolean isShowSuspension();
 
-    boolean isShowSuspension();//是否需要显示悬停title
+    //悬停的title
+    String getSuspensionTag();
+
 }

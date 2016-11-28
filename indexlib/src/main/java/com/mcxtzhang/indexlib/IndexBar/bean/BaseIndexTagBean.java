@@ -1,6 +1,6 @@
 package com.mcxtzhang.indexlib.IndexBar.bean;
 
-import com.mcxtzhang.indexlib.suspension.ITitleCategoryInterface;
+import com.mcxtzhang.indexlib.suspension.ISuspensionTagInterface;
 
 /**
  * 介绍：索引类的标志位的实体基类
@@ -10,7 +10,7 @@ import com.mcxtzhang.indexlib.suspension.ITitleCategoryInterface;
  * 时间： 16/09/04.
  */
 
-public abstract class BaseIndexTagBean implements ITitleCategoryInterface {
+public abstract class BaseIndexTagBean implements ISuspensionTagInterface {
     private String baseIndexTag;//所属的分类（城市的汉语拼音首字母）
 
     public String getBaseIndexTag() {
@@ -23,7 +23,7 @@ public abstract class BaseIndexTagBean implements ITitleCategoryInterface {
     }
 
     @Override
-    public String getTitleCategory() {
+    public String getSuspensionTag() {
         return baseIndexTag;
     }
 

@@ -15,15 +15,15 @@ import android.view.View;
 import java.util.List;
 
 /**
- * 介绍：分类悬停Decoration
+ * 介绍：分类、悬停的Decoration
  * 作者：zhangxutong
  * 邮箱：mcxtzhang@163.com
  * 主页：http://blog.csdn.net/zxt0601
  * 时间： 2016/11/7.
  */
 
-public class TitleItemDecoration extends RecyclerView.ItemDecoration {
-    private List<? extends ITitleCategoryInterface> mDatas;
+public class SuspensionTagDecoration extends RecyclerView.ItemDecoration {
+    private List<? extends ISuspensionTagInterface> mDatas;
     private Paint mPaint;
     private Rect mBounds;//用于存放测量文字Rect
 
@@ -37,7 +37,7 @@ public class TitleItemDecoration extends RecyclerView.ItemDecoration {
     private int mHeaderViewCount = 0;
 
 
-    public TitleItemDecoration(Context context, List<? extends ITitleCategoryInterface> datas) {
+    public SuspensionTagDecoration(Context context, List<? extends ISuspensionTagInterface> datas) {
         super();
         mDatas = datas;
         mPaint = new Paint();
@@ -50,28 +50,28 @@ public class TitleItemDecoration extends RecyclerView.ItemDecoration {
     }
 
 
-    public TitleItemDecoration setmTitleHeight(int mTitleHeight) {
+    public SuspensionTagDecoration setmTitleHeight(int mTitleHeight) {
         this.mTitleHeight = mTitleHeight;
         return this;
     }
 
 
-    public TitleItemDecoration setColorTitleBg(int colorTitleBg) {
+    public SuspensionTagDecoration setColorTitleBg(int colorTitleBg) {
         COLOR_TITLE_BG = colorTitleBg;
         return this;
     }
 
-    public TitleItemDecoration setColorTitleFont(int colorTitleFont) {
+    public SuspensionTagDecoration setColorTitleFont(int colorTitleFont) {
         COLOR_TITLE_FONT = colorTitleFont;
         return this;
     }
 
-    public TitleItemDecoration setTitleFontSize(int mTitleFontSize) {
+    public SuspensionTagDecoration setTitleFontSize(int mTitleFontSize) {
         mPaint.setTextSize(mTitleFontSize);
         return this;
     }
 
-    public TitleItemDecoration setmDatas(List<? extends ITitleCategoryInterface> mDatas) {
+    public SuspensionTagDecoration setmDatas(List<? extends ISuspensionTagInterface> mDatas) {
         this.mDatas = mDatas;
         return this;
     }
@@ -80,7 +80,7 @@ public class TitleItemDecoration extends RecyclerView.ItemDecoration {
         return mHeaderViewCount;
     }
 
-    public TitleItemDecoration setHeaderViewCount(int headerViewCount) {
+    public SuspensionTagDecoration setHeaderViewCount(int headerViewCount) {
         mHeaderViewCount = headerViewCount;
         return this;
     }
@@ -107,7 +107,7 @@ public class TitleItemDecoration extends RecyclerView.ItemDecoration {
                     drawTitleArea(c, left, right, child, params, position);
 
                 } else {//其他的通过判断
-                    if (null != mDatas.get(position).getTitleCategory() && !mDatas.get(position).getTitleCategory().equals(mDatas.get(position - 1).getTitleCategory())) {
+                    if (null != mDatas.get(position).getSuspensionTag() && !mDatas.get(position).getSuspensionTag().equals(mDatas.get(position - 1).getSuspensionTag())) {
                         //不为空 且跟前一个tag不一样了，说明是新的分类，也要title
                         drawTitleArea(c, left, right, child, params, position);
                     } else {
@@ -136,8 +136,8 @@ public class TitleItemDecoration extends RecyclerView.ItemDecoration {
         Paint.FontMetricsInt fontMetrics = mPaint.getFontMetricsInt();
         int baseline = (getMeasuredHeight() - fontMetrics.bottom + fontMetrics.top) / 2 - fontMetrics.top;*/
 
-        mPaint.getTextBounds(mDatas.get(position).getTitleCategory(), 0, mDatas.get(position).getTitleCategory().length(), mBounds);
-        c.drawText(mDatas.get(position).getTitleCategory(), child.getPaddingLeft(), child.getTop() - params.topMargin - (mTitleHeight / 2 - mBounds.height() / 2), mPaint);
+        mPaint.getTextBounds(mDatas.get(position).getSuspensionTag(), 0, mDatas.get(position).getSuspensionTag().length(), mBounds);
+        c.drawText(mDatas.get(position).getSuspensionTag(), child.getPaddingLeft(), child.getTop() - params.topMargin - (mTitleHeight / 2 - mBounds.height() / 2), mPaint);
     }
 
     @Override
@@ -149,13 +149,13 @@ public class TitleItemDecoration extends RecyclerView.ItemDecoration {
             return;//越界
         }
 
-        String tag = mDatas.get(pos).getTitleCategory();
+        String tag = mDatas.get(pos).getSuspensionTag();
         //View child = parent.getChildAt(pos);
         View child = parent.findViewHolderForLayoutPosition(pos + getHeaderViewCount()).itemView;//出现一个奇怪的bug，有时候child为空，所以将 child = parent.getChildAt(i)。-》 parent.findViewHolderForLayoutPosition(pos).itemView
 
         boolean flag = false;//定义一个flag，Canvas是否位移过的标志
         if ((pos + 1) < mDatas.size()) {//防止数组越界（一般情况不会出现）
-            if (null != tag && !tag.equals(mDatas.get(pos + 1).getTitleCategory())) {//当前第一个可见的Item的tag，不等于其后一个item的tag，说明悬浮的View要切换了
+            if (null != tag && !tag.equals(mDatas.get(pos + 1).getSuspensionTag())) {//当前第一个可见的Item的tag，不等于其后一个item的tag，说明悬浮的View要切换了
                 Log.d("zxt", "onDrawOver() called with: c = [" + child.getTop());//当getTop开始变负，它的绝对值，是第一个可见的Item移出屏幕的距离，
                 if (child.getHeight() + child.getTop() < mTitleHeight) {//当第一个可见的item在屏幕中还剩的高度小于title区域的高度时，我们也该开始做悬浮Title的“交换动画”
                     c.save();//每次绘制前 保存当前Canvas状态，
@@ -252,7 +252,7 @@ public class TitleItemDecoration extends RecyclerView.ItemDecoration {
         }
         //我记得Rv的item position在重置时可能为-1.保险点判断一下吧
         if (position > -1) {
-            ITitleCategoryInterface titleCategoryInterface = mDatas.get(position);
+            ISuspensionTagInterface titleCategoryInterface = mDatas.get(position);
             //等于0肯定要有title的,
             // 2016 11 07 add 考虑到headerView 等于0 也不应该有title
             // 2016 11 10 add 通过接口里的isShowSuspension() 方法，先过滤掉不想显示悬停的item
@@ -260,7 +260,7 @@ public class TitleItemDecoration extends RecyclerView.ItemDecoration {
                 if (position == 0) {
                     outRect.set(0, mTitleHeight, 0, 0);
                 } else {//其他的通过判断
-                    if (null != titleCategoryInterface.getTitleCategory() && !titleCategoryInterface.getTitleCategory().equals(mDatas.get(position - 1).getTitleCategory())) {
+                    if (null != titleCategoryInterface.getSuspensionTag() && !titleCategoryInterface.getSuspensionTag().equals(mDatas.get(position - 1).getSuspensionTag())) {
                         //不为空 且跟前一个tag不一样了，说明是新的分类，也要title
                         outRect.set(0, mTitleHeight, 0, 0);
                     }

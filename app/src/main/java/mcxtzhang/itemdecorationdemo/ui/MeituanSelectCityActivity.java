@@ -14,7 +14,7 @@ import android.widget.Toast;
 
 import com.mcxtzhang.indexlib.IndexBar.bean.BaseIndexPinyinBean;
 import com.mcxtzhang.indexlib.IndexBar.widget.IndexBar;
-import com.mcxtzhang.indexlib.suspension.TitleItemDecoration;
+import com.mcxtzhang.indexlib.suspension.SuspensionTagDecoration;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +51,7 @@ public class MeituanSelectCityActivity extends AppCompatActivity {
     //主体部分数据源（城市数据）
     private List<MeiTuanBean> mBodyDatas;
 
-    private TitleItemDecoration mDecoration;
+    private SuspensionTagDecoration mDecoration;
 
     /**
      * 右侧边栏导航区域
@@ -120,7 +120,7 @@ public class MeituanSelectCityActivity extends AppCompatActivity {
 
 
         mRv.setAdapter(mHeaderAdapter);
-        mRv.addItemDecoration(mDecoration = new TitleItemDecoration(this, mSourceDatas)
+        mRv.addItemDecoration(mDecoration = new SuspensionTagDecoration(this, mSourceDatas)
                         .setmTitleHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 35, getResources().getDisplayMetrics()))
                         .setColorTitleBg(mContext.getResources().getColor(android.R.color.white))
                         .setTitleFontSize((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 16, getResources().getDisplayMetrics()))
