@@ -41,10 +41,11 @@ public class IndexBar extends View {
     public static String[] INDEX_STRING = {"A", "B", "C", "D", "E", "F", "G", "H", "I",
             "J", "K", "L", "M", "N", "O", "P", "Q", "R", "S", "T", "U", "V",
             "W", "X", "Y", "Z", "#"};
-    //索引数据源
-    private List<String> mIndexDatas;
     //是否需要根据实际的数据来生成索引数据源（例如 只有 A B C 三种tag，那么索引栏就 A B C 三项）
     private boolean isNeedRealIndex;
+    //索引数据源
+    private List<String> mIndexDatas;
+
 
     //View的宽高
     private int mWidth, mHeight;
@@ -64,6 +65,7 @@ public class IndexBar extends View {
 
     //以下边变量是外部set进来的
     private TextView mPressedShowTextView;//用于特写显示正在被触摸的index值
+    private boolean isSourceDatasAlreadySorted;//源数据 已经有序？
     private List<? extends BaseIndexPinyinBean> mSourceDatas;//Adapter的数据源
     private LinearLayoutManager mLayoutManager;
     private int mHeaderViewCount = 0;
@@ -87,6 +89,15 @@ public class IndexBar extends View {
 
     public IndexBar setHeaderViewCount(int headerViewCount) {
         mHeaderViewCount = headerViewCount;
+        return this;
+    }
+
+    public boolean isSourceDatasAlreadySorted() {
+        return isSourceDatasAlreadySorted;
+    }
+
+    public IndexBar setSourceDatasAlreadySorted(boolean sourceDatasAlreadySorted) {
+        isSourceDatasAlreadySorted = sourceDatasAlreadySorted;
         return this;
     }
 
@@ -326,13 +337,26 @@ public class IndexBar extends View {
         mConvertCharHelper.convert(mSourceDatas);
         //拼音->tag
         mConvertCharHelper.fillInexTag(mSourceDatas);
-        //排序sourceDatas
-        mSortHelper.sortSourceDatas(mSourceDatas);
+
+        if (!isSourceDatasAlreadySorted) {
+            //排序sourceDatas
+            mSortHelper.sortSourceDatas(mSourceDatas);
+        }
         if (isNeedRealIndex) {
             mSortHelper.getSortedIndexDatas(mSourceDatas, mIndexDatas);
             computeGapHeight();
         }
         //sortData();
+    }
+
+    /**
+     * 以下情况调用：
+     * 1 在数据源改变
+     * 2 控件size改变时
+     * 计算gapHeight
+     */
+    private void computeGapHeight() {
+        mGapHeight = (mHeight - getPaddingTop() - getPaddingBottom()) / mIndexDatas.size();
     }
 
     /**
@@ -365,11 +389,4 @@ public class IndexBar extends View {
         return -1;
     }
 
-    /**
-     * 在数据源改变、控件size改变时，调用。
-     * 计算gapHeight
-     */
-    private void computeGapHeight() {
-        mGapHeight = (mHeight - getPaddingTop() - getPaddingBottom()) / mIndexDatas.size();
-    }
 }

@@ -15,6 +15,13 @@ import java.util.List;
  */
 
 public class ConvertCharHelperImpl implements IConvertCharHelper {
+
+    /**
+     * 如果需要，
+     * 字符->拼音，
+     *
+     * @param datas
+     */
     @Override
     public void convert(List<? extends BaseIndexPinyinBean> datas) {
         if (null == datas || datas.isEmpty()) {
@@ -42,6 +49,12 @@ public class ConvertCharHelperImpl implements IConvertCharHelper {
 
     }
 
+    /**
+     * 如果需要取出，则
+     * 取出首字母->tag,或者特殊字母 "#".
+     * 否则，用户已经实现设置好
+     * @param datas
+     */
     @Override
     public void fillInexTag(List<? extends BaseIndexPinyinBean> datas) {
         if (null == datas || datas.isEmpty()) {
