@@ -87,6 +87,12 @@ public class IndexBar extends View {
         return mHeaderViewCount;
     }
 
+    /**
+     * 设置Headerview的Count
+     *
+     * @param headerViewCount
+     * @return
+     */
     public IndexBar setHeaderViewCount(int headerViewCount) {
         mHeaderViewCount = headerViewCount;
         return this;
@@ -96,10 +102,48 @@ public class IndexBar extends View {
         return isSourceDatasAlreadySorted;
     }
 
+    /**
+     * 源数据 是否已经有序
+     *
+     * @param sourceDatasAlreadySorted
+     * @return
+     */
     public IndexBar setSourceDatasAlreadySorted(boolean sourceDatasAlreadySorted) {
         isSourceDatasAlreadySorted = sourceDatasAlreadySorted;
         return this;
     }
+
+    public IConvertCharHelper getConvertCharHelper() {
+        return mConvertCharHelper;
+    }
+
+    /**
+     * 转化帮助类
+     *
+     * @param convertCharHelper
+     * @return
+     */
+    public IndexBar setConvertCharHelper(IConvertCharHelper convertCharHelper) {
+        mConvertCharHelper = convertCharHelper;
+        return this;
+    }
+
+    public ISortHelper getSortHelper() {
+        return mSortHelper;
+    }
+
+    /**
+
+     * 设置排序帮助类
+     *
+     * @param sortHelper
+     * @return
+     */
+    public IndexBar setSortHelper(ISortHelper sortHelper) {
+        mSortHelper = sortHelper;
+        return this;
+    }
+
 
     private void init(Context context, AttributeSet attrs, int defStyleAttr) {
         int textSize = (int) TypedValue.applyDimension(
