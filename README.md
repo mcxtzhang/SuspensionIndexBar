@@ -1,5 +1,6 @@
 # SuspensionIndexBar
 相关博文：
+
 从0实现：
 http://blog.csdn.net/zxt0601/article/details/52355199
 
@@ -95,7 +96,7 @@ new TitleItemDecoration(this, mDatas).setHeaderViewCount(mWrapperAdapter.getHead
 
 
 # to do list
-1 将所有可复用代码都抽离至lib
+1 扩展 SuspensionDecoration 支持传入layout or View。
 
 
 # 闲言碎语
