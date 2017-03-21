@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ItemDecorationIndexBar.iml" filepath="$PROJECT_DIR$/ItemDecorationIndexBar.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SuspensionIndexBar.iml" filepath="$PROJECT_DIR$/SuspensionIndexBar.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://$PROJECT_DIR$/indexlib/indexlib.iml" filepath="$PROJECT_DIR$/indexlib/indexlib.iml" />
     </modules>
