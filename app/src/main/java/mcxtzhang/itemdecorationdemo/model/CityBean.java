@@ -43,6 +43,11 @@ public class CityBean extends BaseIndexPinyinBean {
     }
 
     @Override
+    public boolean isNeedToConvertCity() {
+        return false;
+    }
+
+    @Override
     public boolean isNeedToPinyin() {
         return !isTop;
     }

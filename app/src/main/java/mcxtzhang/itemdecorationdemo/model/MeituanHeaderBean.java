@@ -46,6 +46,11 @@ public class MeituanHeaderBean extends BaseIndexPinyinBean {
     }
 
     @Override
+    public boolean isNeedToConvertCity() {
+        return true;
+    }
+
+    @Override
     public boolean isNeedToPinyin() {
         return false;
     }
