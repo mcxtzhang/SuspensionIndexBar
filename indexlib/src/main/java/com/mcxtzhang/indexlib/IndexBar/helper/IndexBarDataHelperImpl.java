@@ -1,6 +1,9 @@
 package com.mcxtzhang.indexlib.IndexBar.helper;
 
+import android.content.Context;
+
 import com.github.promeg.pinyinhelper.Pinyin;
+import com.github.promeg.tinypinyin.lexicons.android.cncity.CnCityDict;
 import com.mcxtzhang.indexlib.IndexBar.bean.BaseIndexPinyinBean;
 
 import java.util.Collections;
@@ -20,6 +23,12 @@ import java.util.List;
  */
 
 public class IndexBarDataHelperImpl implements IIndexBarDataHelper {
+    private Context mContext;
+    public IndexBarDataHelperImpl(){}
+
+    public IndexBarDataHelperImpl(Context context){
+        this.mContext = context;
+    }
     /**
      * 如果需要，
      * 字符->拼音，
@@ -32,18 +41,24 @@ public class IndexBarDataHelperImpl implements IIndexBarDataHelper {
             return this;
         }
         int size = datas.size();
+        if (mContext != null)
+            Pinyin.init(Pinyin.newConfig().with(CnCityDict.getInstance(mContext)));
         for (int i = 0; i < size; i++) {
             BaseIndexPinyinBean indexPinyinBean = datas.get(i);
             StringBuilder pySb = new StringBuilder();
             //add by zhangxutong 2016 11 10 如果不是top 才转拼音，否则不用转了
             if (indexPinyinBean.isNeedToPinyin()) {
                 String target = indexPinyinBean.getTarget();//取出需要被拼音化的字段
-                //遍历target的每个char得到它的全拼音
-                for (int i1 = 0; i1 < target.length(); i1++) {
-                    //利用TinyPinyin将char转成拼音
-                    //查看源码，方法内 如果char为汉字，则返回大写拼音
-                    //如果c不是汉字，则返回String.valueOf(c)
-                    pySb.append(Pinyin.toPinyin(target.charAt(i1)).toUpperCase());
+                if(indexPinyinBean.isNeedToConvertCity()){
+                    pySb.append(Pinyin.toPinyin(target,"").toUpperCase());
+                }else {
+                    //遍历target的每个char得到它的全拼音
+                    for (int i1 = 0; i1 < target.length(); i1++) {
+                        //利用TinyPinyin将char转成拼音
+                        //查看源码，方法内 如果char为汉字，则返回大写拼音
+                        //如果c不是汉字，则返回String.valueOf(c)
+                        pySb.append(Pinyin.toPinyin(target.charAt(i1)).toUpperCase());
+                    }
                 }
                 indexPinyinBean.setBaseIndexPinyin(pySb.toString());//设置城市名全拼音
             } else {

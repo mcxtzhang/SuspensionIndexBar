@@ -5,7 +5,7 @@ android {
     buildToolsVersion "24.0.3"
 
     defaultConfig {
-        minSdkVersion 14
+        minSdkVersion 16
         targetSdkVersion 24
         versionCode 1
         versionName "1.0"
@@ -25,5 +25,6 @@ dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:recyclerview-v7:24.2.1'
-    compile 'com.github.promeg:tinypinyin:1.0.0' // ~80KB
+    compile 'com.github.promeg:tinypinyin:2.0.3'
+    compile 'com.github.promeg:tinypinyin-lexicons-android-cncity:2.0.3'
 }

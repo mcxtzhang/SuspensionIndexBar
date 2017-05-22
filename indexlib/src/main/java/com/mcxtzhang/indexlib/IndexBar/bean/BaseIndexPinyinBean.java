@@ -31,5 +31,8 @@ public abstract class BaseIndexPinyinBean extends BaseIndexBean {
     //需要转化成拼音的目标字段
     public abstract String getTarget();
 
+    //如果需要转换城市名(包括多音字)->拼音，返回true
+    public abstract boolean isNeedToConvertCity();
+
 
 }

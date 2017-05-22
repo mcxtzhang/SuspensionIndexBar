@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.mcxtzhang.indexlib.IndexBar.bean.BaseIndexPinyinBean;
+import com.mcxtzhang.indexlib.IndexBar.helper.IndexBarDataHelperImpl;
 import com.mcxtzhang.indexlib.IndexBar.widget.IndexBar;
 import com.mcxtzhang.indexlib.suspension.SuspensionDecoration;
 
@@ -212,8 +213,10 @@ public class MeituanSelectCityActivity extends AppCompatActivity {
         for (int i = 0; i < 5; i++) {
             mBodyDatas.add(new MeiTuanBean("东京"));
             mBodyDatas.add(new MeiTuanBean("大阪"));
+            mBodyDatas.add(new MeiTuanBean("重庆"));
         }
         //先排序
+        mIndexBar.setDataHelper(new IndexBarDataHelperImpl(this));
         mIndexBar.getDataHelper().sortSourceDatas(mBodyDatas);
         mSourceDatas.clear();
         mSourceDatas.addAll(mHeaderDatas);
