@@ -92,17 +92,42 @@ public class IndexBarDataHelperImpl implements IIndexBarDataHelper {
         Collections.sort(datas, new Comparator<BaseIndexPinyinBean>() {
             @Override
             public int compare(BaseIndexPinyinBean lhs, BaseIndexPinyinBean rhs) {
-                if (!lhs.isNeedToPinyin()) {
+               // 对于某一条件的判定，需要明确的有-1，0，1三种完整的返回。
+               // 否则在JAVA 1.7 or Higher 上，会报错
+               // Comparison method violates its general contract!
+               if (lhs == null && rhs == null) {
                     return 0;
-                } else if (!rhs.isNeedToPinyin()) {
+                } else if (lhs == null) {
+                    return -1;
+                } else if (rhs == null) {
+                    return 1;
+                }
+
+                if (lhs.getBaseIndexPinyin() == null && rhs.getBaseIndexPinyin() == null) {
+                    return 0;
+                } else if (lhs.getBaseIndexPinyin() == null) {
+                    return -1;
+                } else if (rhs.getBaseIndexPinyin() == null) {
+                    return 1;
+                }
+
+                if (lhs.getBaseIndexTag().equals("#") && rhs.getBaseIndexTag().equals("#")){
                     return 0;
                 } else if (lhs.getBaseIndexTag().equals("#")) {
                     return 1;
                 } else if (rhs.getBaseIndexTag().equals("#")) {
                     return -1;
-                } else {
-                    return lhs.getBaseIndexPinyin().compareTo(rhs.getBaseIndexPinyin());
                 }
+
+                if (!lhs.isNeedToPinyin() && !rhs.isNeedToPinyin()){
+                    return 0;
+                } else if (!lhs.isNeedToPinyin()) {
+                    return 1;
+                } else if (!rhs.isNeedToPinyin()) {
+                    return -1;
+                }
+
+                return lhs.getBaseIndexPinyin().compareTo(rhs.getBaseIndexPinyin());
             }
         });
         return this;
